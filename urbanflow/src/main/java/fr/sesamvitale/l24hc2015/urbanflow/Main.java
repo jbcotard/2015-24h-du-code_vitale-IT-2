@@ -20,6 +20,7 @@ import fr.sesamvitale.l24hc2015.urbanflow.data.Reseau;
 import fr.sesamvitale.l24hc2015.urbanflow.graphe.GrapheImpl;
 import fr.sesamvitale.l24hc2015.urbanflow.graphe.IGraphe;
 import fr.sesamvitale.l24hc2015.urbanflow.map.MapBuilder;
+import fr.sesamvitale.l24hc2015.urbanflow.map.MapBuilderImpl;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.ConnectGameServer;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.MoveGameServer;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.ReponseConnect;
@@ -43,7 +44,7 @@ public class Main {
 		// 0 - Genere la MAP
 		System.out.println("");
 		System.out.println("Génération de la MAP");
-		MapBuilder mapBuilder = null;
+		MapBuilder mapBuilder = new MapBuilderImpl();
 		Reseau reseau = mapBuilder.buildReseau();
 
 		IGraphe graphe = GrapheImpl.getInstance();
