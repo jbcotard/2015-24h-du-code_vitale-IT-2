@@ -8,7 +8,6 @@ public interface IGraphe {
 	public abstract Deplacement seDeplacer(int source, int target, String heure, String jour);
 
 	public abstract void creerGraphe(Reseau reseau);
-	
-	public abstract void initialiserPonderations(String tempsDepart, String jour);
+
 
 }

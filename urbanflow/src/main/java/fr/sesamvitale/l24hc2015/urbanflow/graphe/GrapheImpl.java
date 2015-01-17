@@ -129,10 +129,6 @@ public class GrapheImpl implements IGraphe
 	}
 
 	private void mettreAJourPonderations(String tempsDepart, String jour){
-		
-	}
-	
-	public void initialiserPonderations(String tempsDepart, String jour){
 		Set<Liaison> edges = graphe.edgeSet();
 
 		for (Liaison e : edges) {
@@ -158,7 +154,8 @@ public class GrapheImpl implements IGraphe
 		if (null != prochain){
 			Deplacement d = new Deplacement();
 			d.setNumArret(prochain.getId());
-			d.setNumLigne(chemin.getLigne());
+			Ligne l = reseau.getLignes().get(chemin.getLigne());
+			d.setNumLigne(l.getNumero_de_ligne());
 			d.setConnexion(getHoraireDepart(heure, source, chemin.getLigne(), jour));
 			return d;
 		}
@@ -179,5 +176,6 @@ public class GrapheImpl implements IGraphe
 		Liaison arret = dijkstra.getNextArret(target);
 		return arret;
 	}
+
 
 }
