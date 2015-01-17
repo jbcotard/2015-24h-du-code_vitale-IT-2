@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Reseau {
-	private HashMap<Integer, Ligne> lignes;
+	private HashMap<String, Ligne> lignes;
 	private static Reseau reseau;
 	
 	private Reseau()
 	{
-		lignes = new HashMap<Integer, Ligne>();
+		lignes = new HashMap<String, Ligne>();
 		parserJson();
 	}
 	
@@ -35,5 +35,14 @@ public class Reseau {
 		
 		return horaires;
 	}
+
+	/**
+	 * @return the lignes
+	 */
+	public HashMap<String, Ligne> getLignes() {
+		return lignes;
+	}
+	
+	
 
 }
