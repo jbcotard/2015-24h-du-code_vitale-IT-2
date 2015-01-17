@@ -1,0 +1,24 @@
+Une partie se déroule ainsi :
+1. vous vous enregistrez et enregistrez votre bot à http://24hc15.haum.org/api/register
+2. pour jouer, le bot demande à être placé dans un jeu en appellant http://24hc15.haum.org/api/connect
+3. vous devez vérifier le début de la partie sur http://24hc15.haum.org/api/play/<game_token>/verif. 
+Cette url vous êtes renvoyée par connect
+4. quand la partie commence, verif vous renvoie : l'heure et la date de début dans le jeu, le nom de l'arret de départ et son 
+id et de même pour l'arret d'arrivée cible
+Une fois que le jeu a commencé, il faudra jouer sur :
+ http://24hc15.haum.org/api/<game_token>/<bot_token>/move
+en fait, il faudra utiliser l'url renvoyée par verifet là, c'est le drame
+vous devez envoyer en POST un objet JSON qui contient :'secret_token', 'track', 'connection', 'to_stop', 'type'
+ - le secret est celui de votre bot
+ - la track est la ligne que vous voulez enprumter
+ - la connection est l'horaire de passage
+ - to_stop est l'arrêt où vous voulez vous arrêter
+ - et type est si vous voulez faire un mouvement ou emprunter un raccourci (y'en a pas pour l'instant, on les rajoutera au fur et à mesure). pour l'instant type='move'
+Les autres urls de l'API sont :
+/incidents/<game_token> pour récupérer la liste des incidents
+/shortcuts pour récupérer la liste des raccourcis (il n'y en a pas pour l'instant, on vous préviendra quand on en mettra)
+
+enfin pour ces histoire de reroutage
+le premier bot qui arrive au point donné au début s'arrête de jouer
+les deux autres sont reroutés (on leur donne un nouveau point d'arrivée)
+ etc jusqu'a ce que tous les bots soient arrivés
