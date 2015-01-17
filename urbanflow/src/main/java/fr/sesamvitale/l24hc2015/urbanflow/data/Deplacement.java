@@ -3,6 +3,8 @@ package fr.sesamvitale.l24hc2015.urbanflow.data;
 public class Deplacement {
 	private String numArret;
 	private String numLigne;
+	private String connexion;
+	
 	/**
 	 * @return the numArret
 	 */
@@ -26,6 +28,18 @@ public class Deplacement {
 	 */
 	public void setNumLigne(String numLigne) {
 		this.numLigne = numLigne;
+	}
+	/**
+	 * @return the connexion
+	 */
+	public String getConnexion() {
+		return connexion;
+	}
+	/**
+	 * @param connexion the connexion to set
+	 */
+	public void setConnexion(String connexion) {
+		this.connexion = connexion;
 	}
 	
 	

@@ -72,13 +72,11 @@ public class GrapheImpl implements IGraphe
 	{
 		graphe.addEdge(l.getSource(),l.getTarget(),l);
 	}
-
-	private int calculerTempsDeuxArretsConsecutifs(String tempsDepart, Arret source, Arret target, String ligne, String jour)
-	{
+	
+	private String getHoraire(String tempsDepart, Arret source, Arret target, String ligne, String jour){
 		HashMap<String, HoraireJour> horairesArrets = Reseau.getInstance().getHoraires(source, target, ligne,jour);
 		HoraireJour horairesSource = horairesArrets.get(source.getId());
 		HoraireJour horairesDestination = horairesArrets.get(target.getId());
-		String horairesMinimumDestination = "";
 		int numArret = 0;
 		for (int j=0;j<horairesSource.getHoraires().size();j++){
 			String tempsArret = horairesSource.getHoraires().get(j);
@@ -87,7 +85,12 @@ public class GrapheImpl implements IGraphe
 				break;
 			}
 		}
-		horairesMinimumDestination = horairesDestination.getHoraires().get(numArret+1);
+		return horairesDestination.getHoraires().get(numArret+1);
+	}
+
+	private int calculerTempsDeuxArretsConsecutifs(String tempsDepart, Arret source, Arret target, String ligne, String jour)
+	{
+		String horairesMinimumDestination = getHoraire(tempsDepart, source, target, ligne, jour);
 
 		return Temps.getDuree(horairesMinimumDestination, tempsDepart);
 	}
@@ -123,6 +126,7 @@ public class GrapheImpl implements IGraphe
 				Deplacement d = new Deplacement();
 				d.setNumArret(prochain.getName());
 				d.setNumLigne(chemin.get(0).getLigne());
+				d.setConnexion(getHoraire(heure, source, target, chemin.get(0).getLigne(), jour));
 				return d;
 			}
 		}else{
