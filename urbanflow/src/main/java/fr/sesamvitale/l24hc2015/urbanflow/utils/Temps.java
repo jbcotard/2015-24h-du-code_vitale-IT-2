@@ -65,6 +65,22 @@ public class Temps {
 		}
 	}
 	
+	public static int getDuree(String t1S, String t2S){
+		Temps t1 = convertStringToTemps(t1S);
+		Temps t2 = convertStringToTemps(t2S);
+		int posteriorite = isPosterieur(t1,t2);
+		if (posteriorite == 0) {
+			return 0;
+		}
+		int minutesT1 = t1.getHeures()*60+t1.getMinutes();
+		int minutesT2 = t2.getHeures()*60+t2.getMinutes();
+		if (posteriorite==1){ //t1-t2 positif
+			return minutesT1-minutesT2;
+		}else{
+			return minutesT2-minutesT1;
+		}
+	}
+	
 	public static int getDuree(Temps t1, Temps t2){
 		int posteriorite = isPosterieur(t1,t2);
 		if (posteriorite == 0) {

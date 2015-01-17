@@ -1,4 +1,4 @@
-package fr.sesamvitale.l24hc2015.urbanflow.graph;
+package fr.sesamvitale.l24hc2015.urbanflow.graphe;
 
 
 import java.util.HashMap;
@@ -14,22 +14,22 @@ import fr.sesamvitale.l24hc2015.urbanflow.data.Ligne;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Reseau;
 import fr.sesamvitale.l24hc2015.urbanflow.utils.Temps;
 
-public class Graphe 
+public class GrapheImpl 
 {
-	private static Graphe instance;
+	private static GrapheImpl instance;
 	private DirectedWeightedMultigraph<Arret,Liaison> graphe;
 	private HashMap<String, Arret> arrets;
 	
-	private Graphe()
+	private GrapheImpl()
 	{
 		graphe = new DirectedWeightedMultigraph<Arret,Liaison>(Liaison.class);
 	}
 	
-	public static Graphe getInstance()
+	public static GrapheImpl getInstance()
 	{
 		if (null == instance)
 		{
-			instance = new Graphe();
+			instance = new GrapheImpl();
 		}
 		return instance;
 	}
@@ -69,16 +69,31 @@ public class Graphe
 		graphe.addEdge(l.getSource(),l.getTarget(),l);
 	}
 
-	private Temps calculerTempsDeuxArrets(String tempsDepart, Arret source, Arret target, String ligne, String jour)
+	private int calculerTempsDeuxArretsConsecutifs(String tempsDepart, Arret source, Arret target, String ligne, String jour)
 	{
-		Temps temps = new Temps();
 		HashMap<String, List<HoraireJour>> horairesArrets = Reseau.getInstance().getHoraires(source, target, ligne);
 		List<HoraireJour> horairesSource = horairesArrets.get(source.getId());
 		List<HoraireJour> horairesDestination = horairesArrets.get(target.getId());
-		String horairesMinimumSource = "";
+		String horairesMinimumDestination = "";
+		int numArret = 0;
+		int numJour = 0;
 		for (int i=0;i<horairesSource.size();i++){
-			//if (horairesSource.get(i).getHoraires())
+			if (horairesSource.get(i).getJour().equals(jour)){
+				numJour = i;
+				break;
+			}
 		}
-		return temps;
+		HoraireJour horaire = horairesSource.get(numJour);
+		for (int j=0;j<horaire.getHoraires().size();numJour++){
+			String tempsArret = horaire.getHoraires().get(j);
+			if (Temps.isPosterieur(Temps.convertStringToTemps(tempsArret), Temps.convertStringToTemps(tempsDepart)) == 1){
+				numArret = j;
+				break;
+			}
+		}
+		if (horairesDestination.size()>numArret){
+			horairesMinimumDestination = horairesDestination.get(numJour).getHoraires().get(numArret+1);
+		}
+		return Temps.getDuree(horairesMinimumDestination, tempsDepart);
 	}
 }
