@@ -3,6 +3,7 @@
  */
 package fr.sesamvitale.l24hc2015.urbanflow.rest;
 
+import fr.sesamvitale.l24hc2015.urbanflow.rest.builder.ReponseConnectBuilder;
 import fr.sesamvitale.l24hc2015.urbanflow.util.RSClientUtil;
 
 /**
@@ -18,8 +19,8 @@ public class ConnectGameServer {
 				+ botvitale2_TOKEN, "{\"secret\":\"" + botvitale2_SECRET
 				+ "\",\"mode\":\"training\"}");
 		
-		// constrution du ReponseConnect
-		ReponseConnect reponseConnect = null;
+		// construction du ReponseConnect
+		ReponseConnect reponseConnect = ReponseConnectBuilder.getReponseConnect(reponse);
 		
 		return reponseConnect;
 	}

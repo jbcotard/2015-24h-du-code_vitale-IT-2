@@ -3,6 +3,7 @@
  */
 package fr.sesamvitale.l24hc2015.urbanflow.rest;
 
+import fr.sesamvitale.l24hc2015.urbanflow.rest.builder.ReponseVerifyBuilder;
 import fr.sesamvitale.l24hc2015.urbanflow.util.RSClientUtil;
 
 /**
@@ -18,7 +19,7 @@ public class VerifyGameServer {
 				, "{\"secret_token\":\"" + botvitale2_SECRET
 				+ "\"}");
 		// contruction ReponseVerify
-		ReponseVerify reponseVerify = null;
+		ReponseVerify reponseVerify = ReponseVerifyBuilder.getReponseVerify(reponse);
 		
 		return reponseVerify;
 	}
