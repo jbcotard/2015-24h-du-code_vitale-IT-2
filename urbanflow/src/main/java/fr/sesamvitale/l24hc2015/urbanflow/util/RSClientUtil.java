@@ -34,7 +34,7 @@ public class RSClientUtil {
 				response = "Response From Server \n\n";
 			}
 			scanner.useDelimiter("\\Z");
-			responseBody = response + scanner.next();
+			responseBody = /*response + */scanner.next();
 			scanner.close();
 			conn.disconnect();
 		} catch (MalformedURLException e) {
