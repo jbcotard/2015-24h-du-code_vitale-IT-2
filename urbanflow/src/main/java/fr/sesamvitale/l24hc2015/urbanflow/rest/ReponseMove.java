@@ -85,4 +85,12 @@ public class ReponseMove {
 	public boolean isRerouted() {
 		return "rerouted".equals(status);
 	}
+
+
+	public boolean isArrived() {
+		
+		return "arrived".equals(status);
+	}
+	
+	
 }
