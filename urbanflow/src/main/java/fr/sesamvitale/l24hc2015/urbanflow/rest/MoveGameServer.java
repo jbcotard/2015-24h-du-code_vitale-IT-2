@@ -1,5 +1,7 @@
 package fr.sesamvitale.l24hc2015.urbanflow.rest;
 
+import fr.sesamvitale.l24hc2015.urbanflow.rest.builder.ReponseConnectBuilder;
+import fr.sesamvitale.l24hc2015.urbanflow.rest.builder.ReponseMoveBuilder;
 import fr.sesamvitale.l24hc2015.urbanflow.util.RSClientUtil;
 
 public class MoveGameServer {
@@ -16,7 +18,7 @@ public class MoveGameServer {
 				+ "\"}");
 		
 		// contruction ReponseMove
-		ReponseMove reponseMove = null;
+		ReponseMove reponseMove = ReponseMoveBuilder.getReponseConnect(reponse);;
 		
 		return reponseMove;
 	}
