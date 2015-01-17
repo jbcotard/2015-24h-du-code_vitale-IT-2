@@ -1,5 +1,6 @@
 package fr.sesamvitale.l24hc2015.urbanflow.rest.builder;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.sesamvitale.l24hc2015.urbanflow.rest.ReponseConnect;
@@ -14,7 +15,7 @@ public class ReponseConnectBuilder {
 	 * "success": true}
 	 */
 
-	public static ReponseConnect getReponseConnect(String jsonData) {
+	public static ReponseConnect getReponseConnect(String jsonData) throws JSONException {
 		ReponseConnect rc = new ReponseConnect();
 
 		JSONObject obj = new JSONObject(jsonData);

@@ -15,10 +15,42 @@ public class ReponseMove {
 	private String time;
 	private int stopId;
 	private String stopName;
+	private int target;
 
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public String getMessage() {
+		return message;
+	}
+
+
+	public boolean isSuccess() {
+		return success;
+	}
+
+
+	public String getTime() {
+		return time;
+	}
+
+
+	public int getStopId() {
+		return stopId;
+	}
+
+
+	public String getStopName() {
+		return stopName;
+	}
+
 
 	public void setMessage(String message) {
 		this.message = message;
@@ -40,5 +72,17 @@ public class ReponseMove {
 		this.stopName = stopName;
 	}
 
-	
+
+	public int getTarget() {
+		return target;
+	}
+
+
+	public void setTarget(int target) {
+		this.target = target;
+	}
+
+	public boolean isRerouted() {
+		return "rerouted".equals(status);
+	}
 }
