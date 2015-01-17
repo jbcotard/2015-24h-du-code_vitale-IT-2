@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.sesamvitale.l24hc2015.urbanflow.tests;
+package fr.sesamvitale.l24hc2015.urbanflow.rest.builder;
 
 import org.junit.Test;
 
