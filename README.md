@@ -31,4 +31,21 @@ Token : ea3b31b7956ba470a0545b79e4069d71
 
 Secret Key :361581db8f84766d2912241aa17778fce64b91e05db18616877b2d44af3099aa
 
+----------------------------------------------------------------------------------------------------------
+http://24hc15.haum.org/api/connect/ea3b31b7956ba470a0545b79e4069d71
+{
+    "secret": "361581db8f84766d2912241aa17778fce64b91e05db18616877b2d44af3099aa",
+"mode": "training"
+}
+Résultat:
 
+{"status": "registered", "url": "/api/play/32dcb69ff50409296d30c4a5e2f874e8/ea3b31b7956ba470a0545b79e4069d71/verif", "message": "Your bot is now registered! Check the url to see when you will play.", "success": true}
+----------------------------------------------------------------------------------------------------------
+http://24hc15.haum.org//api/play/b78f9a12e99a595c11f10ad5bb356a81/ea3b31b7956ba470a0545b79e4069d71/verif
+
+{
+    "secret_token": "361581db8f84766d2912241aa17778fce64b91e05db18616877b2d44af3099aa"
+}
+
+Resultat
+{"status": "game_started", "first_stop": {"id": 1341, "name": "Folie"}, "target": {"id": 1248, "name": "Leclerc-fleurus"}, "success": true, "time": 0, "url": "/api/play/b78f9a12e99a595c11f10ad5bb356a81/ea3b31b7956ba470a0545b79e4069d71/move", "message": "The game has started !", "dtstart": "2015-10-28T16:39:00+00:00"}
