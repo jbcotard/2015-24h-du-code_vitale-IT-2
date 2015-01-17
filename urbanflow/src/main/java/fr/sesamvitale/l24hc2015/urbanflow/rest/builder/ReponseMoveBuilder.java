@@ -45,17 +45,22 @@ public class ReponseMoveBuilder {
 		rc.setStatus(obj.getString("status"));
 		rc.setMessage(obj.getString("message"));
 		rc.setSuccess(obj.getBoolean("success"));
-		rc.setTime(obj.getString("time"));
+		rc.setTime(obj.getInt("time"));
 		
-		if ("moved".equals( rc.getStatus()) || "rerouted".equals(rc.getStatus())) {
+		if (!rc.isSuccess()) {
 			rc.setStopId(obj.getJSONObject("stop").getInt("id"));
 			rc.setStopName(obj.getJSONObject("stop").getString("name"));
+			rc.setPenality(obj.getInt("penality"));
+		} else {
+			if ("moved".equals( rc.getStatus()) || "rerouted".equals(rc.getStatus())) {
+				rc.setStopId(obj.getJSONObject("stop").getInt("id"));
+				rc.setStopName(obj.getJSONObject("stop").getString("name"));
+			}
+			
+			if ("rerouted".equals(rc.getStatus())) {
+				rc.setTarget(obj.getInt("target"));
+			}
 		}
-		
-		if ("rerouted".equals(rc.getStatus())) {
-			rc.setTarget(obj.getInt("target"));
-		}
-
 		return rc;
 	}
 

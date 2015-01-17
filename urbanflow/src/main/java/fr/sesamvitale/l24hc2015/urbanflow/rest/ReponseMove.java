@@ -12,10 +12,11 @@ public class ReponseMove {
 	private String status;
 	private String message;
 	private boolean success;
-	private String time;
+	private int time;
 	private int stopId;
 	private String stopName;
 	private int target;
+	private int penality;
 
 	public void setStatus(String status) {
 		this.status = status;
@@ -37,7 +38,7 @@ public class ReponseMove {
 	}
 
 
-	public String getTime() {
+	public int getTime() {
 		return time;
 	}
 
@@ -60,7 +61,7 @@ public class ReponseMove {
 		this.success = success;
 	}
 
-	public void setTime(String time) {
+	public void setTime(int time) {
 		this.time = time;
 	}
 
@@ -115,6 +116,16 @@ public class ReponseMove {
 		builder.append(target);
 		builder.append("]");
 		return builder.toString();
+	}
+
+
+	public int getPenality() {
+		return penality;
+	}
+
+
+	public void setPenality(int penality) {
+		this.penality = penality;
 	}
 	
 	
