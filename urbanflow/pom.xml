@@ -1,22 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>fr.sesamvitale.24hc2015</groupId>
-	<artifactId>urbanflow</artifactId>	
+	<artifactId>urbanflow</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<name>urbanflow</name>
 	<version>1.0.0-SNAPSHOT</version>
 	<description>urbanflow</description>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<cxf.version>3.0.0-milestone1</cxf.version>
 	</properties>
 
+	<dependencies>
 
-	
+		<!-- cxf -->
+
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-extension-search</artifactId>
+			<version>${cxf.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-extension-providers</artifactId>
+			<version>${cxf.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+
+		<!-- jgraph -->
+
+
+		<dependency>
+			<groupId>org.jgrapht</groupId>
+			<artifactId>jgrapht-core</artifactId>
+			<version>0.8.3-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -27,7 +69,7 @@
 				</configuration>
 			</plugin>
 
-			</plugins>
+		</plugins>
 	</build>
-	
+
 </project>
