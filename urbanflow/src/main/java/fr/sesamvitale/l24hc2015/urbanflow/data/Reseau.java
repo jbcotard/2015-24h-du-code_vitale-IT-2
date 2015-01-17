@@ -1,6 +1,5 @@
 package fr.sesamvitale.l24hc2015.urbanflow.data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 

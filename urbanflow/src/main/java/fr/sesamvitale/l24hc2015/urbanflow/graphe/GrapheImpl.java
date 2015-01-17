@@ -1,25 +1,23 @@
 package fr.sesamvitale.l24hc2015.urbanflow.graphe;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import org.jgrapht.alg.DijkstraShortestPath;
-import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.DirectedWeightedMultigraph;
 
 import fr.sesamvitale.l24hc2015.urbanflow.data.Arret;
+import fr.sesamvitale.l24hc2015.urbanflow.data.Deplacement;
 import fr.sesamvitale.l24hc2015.urbanflow.data.HoraireJour;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Liaison;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Ligne;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Reseau;
 import fr.sesamvitale.l24hc2015.urbanflow.utils.Temps;
 
-public class GrapheImpl 
+public class GrapheImpl implements IGraphe
 {
 	private static GrapheImpl instance;
 	private DirectedWeightedMultigraph<Arret,Liaison> graphe;
@@ -113,16 +111,23 @@ public class GrapheImpl
 		return 0;
 	}
 	
-	public void seDeplacer(String jour, String heure, String s, String t){
+	public Deplacement seDeplacer(int s, int t, String heure, String jour){
 		mettreAJourPonderations(heure, jour);
 		Arret source = arrets.get(s);
 		Arret target = arrets.get(t);
 		List<Liaison> chemin = dijkstraShortestPath(source, target);
 		if (chemin.size()>0){
 			Arret prochain = chemin.get(0).getTarget();
+			if (null != prochain){
+				Deplacement d = new Deplacement();
+				d.setNumArret(prochain.getName());
+				d.setNumLigne(chemin.get(0).getLigne());
+				return d;
+			}
 		}else{
 			System.out.println("Chemin VIDE");
 		}
+		return null;
 	}
 	
 	/** 
@@ -138,4 +143,6 @@ public class GrapheImpl
 	  List<Liaison> path=pathFinder.getPathEdgeList();
 	  return path;
 	}
+
+
 }
