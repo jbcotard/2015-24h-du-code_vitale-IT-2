@@ -17,6 +17,7 @@ import fr.sesamvitale.l24hc2015.urbanflow.data.HoraireJour;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Liaison;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Ligne;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Reseau;
+import fr.sesamvitale.l24hc2015.urbanflow.rest.Incident;
 import fr.sesamvitale.l24hc2015.urbanflow.util.Temps;
 
 public class GrapheImpl implements IGraphe
@@ -25,7 +26,7 @@ public class GrapheImpl implements IGraphe
 	private DirectedWeightedMultigraph<Arret,Liaison> graphe;
 	private HashMap<String, Arret> arrets;
 	private Reseau reseau;
-	private String lignePrecedente;
+	private List<Incident> incidents;
 
 	private GrapheImpl()
 	{
@@ -138,8 +139,21 @@ public class GrapheImpl implements IGraphe
 	}
 
 	private int calculerIncidents(Arret arret, String temps){
+		if (null == incidents) {
+			return 0;
+		}
 		//parcourt de la liste des incidents
-		//si date actuelle a incident on ajoute la penalite
+		for (int i=0;i<incidents.size();i++){
+			Incident incident = incidents.get(i);
+			if (incident.getArretId().equals(arret.getId())){
+				if ((Temps.isPosterieur(Temps.convertStringToTemps(incident.getDateStart()), 
+						Temps.convertStringToTemps(temps)) == 0)&&
+						(Temps.isPosterieur(Temps.convertStringToTemps(temps), 
+								Temps.convertStringToTemps(incident.getDateEnd())) == 0)){
+					return incident.getPenalty();
+				}
+			}
+		}
 		return 0;
 	}
 
@@ -175,6 +189,12 @@ public class GrapheImpl implements IGraphe
 		dijkstra.execute(source);
 		Liaison arret = dijkstra.getNextArret(target);
 		return arret;
+	}
+
+	@Override
+	public void gererIncidents(List<Incident> incidents) {
+		this.incidents = incidents;
+		
 	}
 
 
