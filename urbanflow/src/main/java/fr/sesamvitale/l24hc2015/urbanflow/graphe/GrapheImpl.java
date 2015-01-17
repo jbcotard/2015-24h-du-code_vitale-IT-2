@@ -15,7 +15,7 @@ import fr.sesamvitale.l24hc2015.urbanflow.data.HoraireJour;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Liaison;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Ligne;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Reseau;
-import fr.sesamvitale.l24hc2015.urbanflow.utils.Temps;
+import fr.sesamvitale.l24hc2015.urbanflow.util.Temps;
 
 public class GrapheImpl implements IGraphe
 {

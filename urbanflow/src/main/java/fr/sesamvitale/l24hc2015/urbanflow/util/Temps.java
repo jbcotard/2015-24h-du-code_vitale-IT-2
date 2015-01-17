@@ -1,4 +1,4 @@
-package fr.sesamvitale.l24hc2015.urbanflow.utils;
+package fr.sesamvitale.l24hc2015.urbanflow.util;
 
 public class Temps {
 	private int heures;
