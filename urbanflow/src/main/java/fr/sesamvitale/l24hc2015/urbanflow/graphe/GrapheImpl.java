@@ -1,10 +1,15 @@
 package fr.sesamvitale.l24hc2015.urbanflow.graphe;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 
+import org.jgrapht.alg.DijkstraShortestPath;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.DirectedWeightedMultigraph;
 
 import fr.sesamvitale.l24hc2015.urbanflow.data.Arret;
@@ -95,5 +100,51 @@ public class GrapheImpl
 			horairesMinimumDestination = horairesDestination.get(numJour).getHoraires().get(numArret+1);
 		}
 		return Temps.getDuree(horairesMinimumDestination, tempsDepart);
+	}
+	
+	private int calculerPonderationDeuxArretsConsecutifs(String tempsDepart, Arret source, Arret target, String ligne, String jour)
+	{
+		int temps = calculerTempsDeuxArretsConsecutifs(tempsDepart, source, target, ligne, jour);
+		int incidents = calculerIncidents();
+		return temps+incidents;
+	}
+	
+	private void mettreAJourPonderations(String tempsDepart, String jour){
+		Set<Liaison> edges = graphe.edgeSet();
+	
+		for (Liaison e : edges) {
+			int ponderation = calculerPonderationDeuxArretsConsecutifs(tempsDepart,e.getSource(),e.getTarget(),e.getLigne(),jour);
+			graphe.setEdgeWeight(e, ponderation);
+		}
+	}
+	
+	private int calculerIncidents(){
+		return 0;
+	}
+	
+	public void seDeplacer(String jour, String heure, String s, String t){
+		mettreAJourPonderations(heure, jour);
+		Arret source = arrets.get(s);
+		Arret target = arrets.get(t);
+		List<Liaison> chemin = dijkstraShortestPath(source, target);
+		if (chemin.size()>0){
+			Arret prochain = chemin.get(0).getTarget();
+		}else{
+			System.out.println("Chemin VIDE");
+		}
+	}
+	
+	/** 
+	 * @return shortest path between two connected spot, using Dijkstra's algorithm.The edge weights, if any, are ignored here, meaning that the returned path is the shortest in terms of number of edges. <p> Return <code>null</code> if the two spots are not connected by a track, or if  one of the spot do not belong to the graph, or if the  {@link #graph} field is<code>null</code>.
+	 * @param source  the spot to start the path with
+	 * @param target  the spot to stop the path with
+	 */
+	private List<Liaison> dijkstraShortestPath(final Arret source,final Arret target){
+	  if (null == graphe) {
+	    return null;
+	  }
+	  DijkstraShortestPath<Arret,Liaison> pathFinder=new DijkstraShortestPath<Arret,Liaison>(graphe,source,target);
+	  List<Liaison> path=pathFinder.getPathEdgeList();
+	  return path;
 	}
 }

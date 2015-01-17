@@ -56,6 +56,5 @@ public class Liaison
 		this.ligne = ligne;
 	}
 	
-	
 
 }
