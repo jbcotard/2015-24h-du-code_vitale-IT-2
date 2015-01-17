@@ -12,6 +12,7 @@ import java.util.Set;
 import org.jgrapht.graph.DirectedWeightedMultigraph;
 
 import fr.sesamvitale.l24hc2015.urbanflow.data.Arret;
+import fr.sesamvitale.l24hc2015.urbanflow.data.Distance;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Liaison;
 
 public class DijkstraAlgorithm {
@@ -21,7 +22,7 @@ public class DijkstraAlgorithm {
 	private Set<Arret> settledNodes;
 	private Set<Arret> unSettledNodes;
 	private Map<Arret, Arret> predecessors;
-	private Map<Arret,Liaison> predecessorsLigne;
+	private Map<String,Liaison> predecessorsLigne;
 	private Map<Arret, Integer> distance;
 	private int changementLigne = -1;
 	private String lignePrecedente = "";
@@ -37,7 +38,7 @@ public class DijkstraAlgorithm {
 		unSettledNodes = new HashSet<Arret>();
 		distance = new HashMap<Arret, Integer>();
 		predecessors = new HashMap<Arret, Arret>();
-		predecessorsLigne = new HashMap<Arret, Liaison>();
+		predecessorsLigne = new HashMap<String, Liaison>();
 		distance.put(source, 0);
 		unSettledNodes.add(source);
 		while (unSettledNodes.size() > 0) {
@@ -51,26 +52,28 @@ public class DijkstraAlgorithm {
 	private void findMinimalDistances(Arret node) {
 		List<Arret> adjacentNodes = getNeighbors(node);
 		for (Arret target : adjacentNodes) {
-			Liaison l = null;
-			int distanceInt = getDistance(node, target, l);
-			
+			Distance d = getDistance(node, target);
+			int distanceInt = d.getDistance();
+			Liaison l = d.getLiaison();
 			if (getShortestDistance(target) > getShortestDistance(node)
 					+ distanceInt) {
 				distance.put(target, getShortestDistance(node)
 						+ distanceInt);
 				predecessors.put(target, node);
-				predecessorsLigne.put(target, l);
+				predecessorsLigne.put(target.getId(), l);
 				unSettledNodes.add(target);
 			}
 		}
 	}
 
-	private int getDistance(Arret node, Arret target, Liaison l) {
+	private Distance getDistance(Arret node, Arret target) {
+		Distance d = new Distance();
 		for (Liaison edge : edges) {
 			if (edge.getSource().equals(node)
 					&& edge.getTarget().equals(target)) {
-				l = edge ;
-				return edge.getWeight();
+				d.setLiaison(edge);
+				d.setDistance(edge.getWeight());
+				return d;
 			}
 		}
 		throw new RuntimeException("Should not happen");
@@ -150,7 +153,7 @@ public class DijkstraAlgorithm {
 		// Put it into the correct order
 		Collections.reverse(path);
 		Arret suivant = path.get(1);
-		return predecessorsLigne.get(suivant);
+		return predecessorsLigne.get(suivant.getId());
 	}
 
 } 
