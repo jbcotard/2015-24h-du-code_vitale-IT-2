@@ -29,6 +29,7 @@ public class ReponseVerify {
 	private String jour;
 	private String message;
 	private boolean success;
+	private String urlMove;
 
 	public boolean isGameStarting() {
 		return GAME_STARTED.equals(getStatus());
@@ -92,6 +93,43 @@ public class ReponseVerify {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public void setUrlMove(String string) {
+		this.urlMove = string;
+	}
+
+	/**
+	 * @return the urlMove
+	 */
+	public String getUrlMove() {
+		return urlMove;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ReponseVerify [status=");
+		builder.append(status);
+		builder.append(", firstStop=");
+		builder.append(firstStop);
+		builder.append(", target=");
+		builder.append(target);
+		builder.append(", heure=");
+		builder.append(heure);
+		builder.append(", jour=");
+		builder.append(jour);
+		builder.append(", message=");
+		builder.append(message);
+		builder.append(", success=");
+		builder.append(success);
+		builder.append(", urlMove=");
+		builder.append(urlMove);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

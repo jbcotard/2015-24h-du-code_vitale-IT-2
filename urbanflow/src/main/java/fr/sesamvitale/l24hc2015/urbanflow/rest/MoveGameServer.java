@@ -8,14 +8,19 @@ public class MoveGameServer {
 
 	public static ReponseMove move(String uRrlVerify, String botvitale2_SECRET,
 			String numLigne, String connexion, String numArret, String type) {
+		//System.out.println(uRrlVerify);
+		
 		// appel ws
-		String reponse = RSClientUtil.sendPOST("http://24hc15.haum.org" + uRrlVerify
-				, "{\"secret_token\":\"" + botvitale2_SECRET
+		String jsonDataInput = "{\"secret_token\":\"" + botvitale2_SECRET
 				+ "\", \"track\":\""+ numLigne 
 				+ "\", \"connection\":\"" + connexion 
-				+ "\", \"to_stop\":\"" + numArret
-				+ "\", \"type\":\"" + type
-				+ "\"}");
+				+ "\", \"to_stop\":" + numArret
+				+ ", \"type\":\"" + type
+				+ "\"}";
+		String reponse = RSClientUtil.sendPOST("http://24hc15.haum.org" + uRrlVerify
+				, jsonDataInput);
+		
+		System.out.println(jsonDataInput);
 		
 		// contruction ReponseMove
 		ReponseMove reponseMove = ReponseMoveBuilder.getReponseConnect(reponse);;

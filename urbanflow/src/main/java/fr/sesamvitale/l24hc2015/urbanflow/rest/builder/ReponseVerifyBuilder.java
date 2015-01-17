@@ -33,7 +33,9 @@ public class ReponseVerifyBuilder {
 		rc.setTarget(obj.getJSONObject("target").getInt("id"));
 		rc.setMessage(obj.getString("message"));
 		rc.setSuccess(obj.getBoolean("success"));
+		rc.setUrlMove(obj.getString("url"));
 		String dateInString = obj.getString("dtstart");
+		
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd'T'HH:mm:ssXXX");
 		

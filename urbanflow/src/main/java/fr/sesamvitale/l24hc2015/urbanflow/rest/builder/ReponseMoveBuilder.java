@@ -39,6 +39,8 @@ public class ReponseMoveBuilder {
 	public static ReponseMove getReponseConnect(String jsonData) {
 		ReponseMove rc = new ReponseMove();
 
+		System.out.println(jsonData);
+		
 		JSONObject obj = new JSONObject(jsonData);
 		rc.setStatus(obj.getString("status"));
 		rc.setMessage(obj.getString("message"));

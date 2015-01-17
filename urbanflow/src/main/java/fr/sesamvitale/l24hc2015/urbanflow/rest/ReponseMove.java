@@ -91,6 +91,31 @@ public class ReponseMove {
 		
 		return "arrived".equals(status);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ReponseMove [status=");
+		builder.append(status);
+		builder.append(", message=");
+		builder.append(message);
+		builder.append(", success=");
+		builder.append(success);
+		builder.append(", time=");
+		builder.append(time);
+		builder.append(", stopId=");
+		builder.append(stopId);
+		builder.append(", stopName=");
+		builder.append(stopName);
+		builder.append(", target=");
+		builder.append(target);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 	
 }

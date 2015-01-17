@@ -41,6 +41,21 @@ public class Deplacement {
 	public void setConnexion(String connexion) {
 		this.connexion = connexion;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Deplacement [numArret=");
+		builder.append(numArret);
+		builder.append(", numLigne=");
+		builder.append(numLigne);
+		builder.append(", connexion=");
+		builder.append(connexion);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 	
 

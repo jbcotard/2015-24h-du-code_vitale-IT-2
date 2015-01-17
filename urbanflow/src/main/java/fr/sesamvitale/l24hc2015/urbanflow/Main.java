@@ -59,6 +59,12 @@ public class Main {
 		System.out.println("Demande d'un jeu");
 		ReponseConnect reponseConnect = ConnectGameServer.connect(
 				botvitale2_SECRET, botvitale2_TOKEN);
+		
+		
+		// 2bis - gestion des incidents
+		// gestion des incidents
+		//ReponseIncident reponseInsident = IncidentGameServer.incidents(equipe_TOKEN);
+		//graphe.addIncidents(reponseInsident.getIncidents());
 
 		// 3 - Attente debut du jeu (verify)
 		// loop attente
@@ -79,7 +85,6 @@ public class Main {
 		// boucle sur des mouvements
 		// 4-0 - verify : pour tester le timeout de la partie
 		// ou à la fin ????
-		// 4-1 - recuperation incidents
 		// 4-2 - regeneration map / recalcul itineraire
 		// 4-3 - move
 		// -> parse resultat move : url
@@ -90,33 +95,52 @@ public class Main {
 
 		ReponseMove reponseMove;
 		int compteur = 0;
+		int currentStopId = reponseVerify.getFirstStop();
+		int currentTarget = reponseVerify.getTarget();
+		String currentConnexion = reponseVerify.getHeure();
+		
+		System.out.println("");
+		System.out.println("Position initiale : " +reponseVerify.toString());
+		
+		
 		do {
-			// gestion des incidents
-			//IncidentGameServer.incidents(equipe_TOKEN);
+
 
 			// calcul itineraire - deplacement suivant
 			Deplacement deplacement = graphe.seDeplacer(
-					reponseVerify.getFirstStop(), reponseVerify.getTarget(),
-					reponseVerify.getHeure(), reponseVerify.getJour());
+					currentStopId, currentTarget,
+					currentConnexion, reponseVerify.getJour());
 
+			System.out.println("");
+			System.out.println("calcul deplacement : " + deplacement);
+			
+			
 			// deplacement suivant
-			reponseMove = MoveGameServer.move(reponseConnect.getURrlVerify(),
+			reponseMove = MoveGameServer.move(reponseVerify.getUrlMove(),
 					botvitale2_SECRET, deplacement.getNumLigne(),
 					deplacement.getConnexion(), deplacement.getNumArret(),
 					"move");
-
+			
+			
+			
+			// analyse reponse move 
+			currentStopId = reponseMove.getStopId();
+			currentTarget = reponseMove.getTarget(); 
+			
+			
 			++compteur;
 
 			// display
 			System.out.println("");
-			System.out.println("Mouvement");
-			System.out.println("de " + reponseVerify.getFirstStop()  + " vers " + deplacement.getNumArret());
+			System.out.println("Mouvement " + reponseMove.toString());
+			System.out.println("de " + currentStopId  + " vers " + currentTarget);
+			System.out.println(reponseMove.toString());
 			
 
 			// verification partie encore active
-			reponseVerify = VerifyGameServer.verify(
-					reponseConnect.getURrlVerify(), botvitale2_SECRET);
-		} while (reponseVerify.isGameStarting());
+//			reponseVerify = VerifyGameServer.verify(
+		//			reponseConnect.getURrlVerify(), botvitale2_SECRET);
+		} while (!reponseMove.isArrived());
 
 		System.out.println("");
 		System.out.println("Fin du jeu");
@@ -124,7 +148,7 @@ public class Main {
 		// affichage SCORE
 
 		System.out.println("");
-		System.out.println("SCORE :");
+		System.out.println("SCORE : " );
 		System.out.println("nb mouvements : " + compteur);
 
 	}
