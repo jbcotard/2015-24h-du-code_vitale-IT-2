@@ -9,12 +9,12 @@ public class Ligne {
 	private String numero_de_ligne;
 	private String nombre_d_arrets;
 	private Arret destination;
-	private HashMap<Integer, Arret> arrets;
-	private List<HoraireJour> horaires;
+	private HashMap<String, Arret> arrets;
+	private HashMap<String,List<HoraireJour>> horaires; // clé = numero de larret
 	
 	public Ligne(){
-		horaires = new ArrayList<HoraireJour>();
-		arrets = new HashMap<Integer, Arret>();
+		horaires = new HashMap<String,List<HoraireJour>>();
+		arrets = new HashMap<String, Arret>();
 	}
 	
 	/**
@@ -68,26 +68,26 @@ public class Ligne {
 	/**
 	 * @return the arrets
 	 */
-	public HashMap<Integer, Arret> getArrets() {
+	public HashMap<String, Arret> getArrets() {
 		return arrets;
 	}
 	/**
 	 * @param arrets the arrets to set
 	 */
-	public void ajouterArrets(int identifiantArret, Arret arrets) {
+	public void ajouterArrets(String identifiantArret, Arret arrets) {
 		this.arrets.put(identifiantArret, arrets);
 	}
 	/**
 	 * @return the horaires
 	 */
-	public List<HoraireJour> getHoraires() {
-		return horaires;
+	public List<HoraireJour> getHoraires(String arret) {
+		return horaires.get(arret);
 	}
 	/**
 	 * @param horaires the horaires to set
 	 */
-	public void ajouterHoraires(HoraireJour horaires) {
-		this.horaires.add(horaires);
+	public void ajouterHoraires(List<HoraireJour> horaires, String numArret ) {
+		this.horaires.put(numArret,horaires);
 	}
 
 	

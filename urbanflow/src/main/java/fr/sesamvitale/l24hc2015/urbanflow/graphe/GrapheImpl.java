@@ -48,7 +48,7 @@ public class GrapheImpl
 			String nomLigne = entry.getKey();
 			Ligne ligne = entry.getValue();
 			Arret arretPrecedent = null;
-			for(Entry<Integer, Arret> entryLigne : ligne.getArrets().entrySet()) {
+			for(Entry<String, Arret> entryLigne : ligne.getArrets().entrySet()) {
 				Arret arret = entryLigne.getValue();
 				if (!arrets.containsKey(arret.getId()))
 				{
@@ -76,29 +76,20 @@ public class GrapheImpl
 
 	private int calculerTempsDeuxArretsConsecutifs(String tempsDepart, Arret source, Arret target, String ligne, String jour)
 	{
-		HashMap<String, List<HoraireJour>> horairesArrets = Reseau.getInstance().getHoraires(source, target, ligne);
-		List<HoraireJour> horairesSource = horairesArrets.get(source.getId());
-		List<HoraireJour> horairesDestination = horairesArrets.get(target.getId());
+		HashMap<String, HoraireJour> horairesArrets = Reseau.getInstance().getHoraires(source, target, ligne,jour);
+		HoraireJour horairesSource = horairesArrets.get(source.getId());
+		HoraireJour horairesDestination = horairesArrets.get(target.getId());
 		String horairesMinimumDestination = "";
 		int numArret = 0;
-		int numJour = 0;
-		for (int i=0;i<horairesSource.size();i++){
-			if (horairesSource.get(i).getJour().equals(jour)){
-				numJour = i;
-				break;
-			}
-		}
-		HoraireJour horaire = horairesSource.get(numJour);
-		for (int j=0;j<horaire.getHoraires().size();numJour++){
-			String tempsArret = horaire.getHoraires().get(j);
+		for (int j=0;j<horairesSource.getHoraires().size();j++){
+			String tempsArret = horairesSource.getHoraires().get(j);
 			if (Temps.isPosterieur(Temps.convertStringToTemps(tempsArret), Temps.convertStringToTemps(tempsDepart)) == 1){
 				numArret = j;
 				break;
 			}
 		}
-		if (horairesDestination.size()>numArret){
-			horairesMinimumDestination = horairesDestination.get(numJour).getHoraires().get(numArret+1);
-		}
+		horairesMinimumDestination = horairesDestination.getHoraires().get(numArret+1);
+
 		return Temps.getDuree(horairesMinimumDestination, tempsDepart);
 	}
 	

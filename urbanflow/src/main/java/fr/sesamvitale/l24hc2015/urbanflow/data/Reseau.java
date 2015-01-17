@@ -28,17 +28,27 @@ public class Reseau {
 		
 	}
 	
-	public HashMap<String, List<HoraireJour>> getHoraires(Arret source, Arret destination, String ligne)
+	public HashMap<String, HoraireJour> getHoraires(Arret source, Arret destination, String ligneString, String jour)
 	{
-		// hashmap contant deux entrées : les listes des horaires des arrets source et destination pour la ligne choisie
-		HashMap<String, List<HoraireJour>> horairesArrets = new HashMap<String, List<HoraireJour>>();
-		List<HoraireJour> horairesA = new ArrayList<HoraireJour>();
-		List<HoraireJour> horairesB = new ArrayList<HoraireJour>();
-		// Remplissage des données avec JSON
-		
-		
-		horairesArrets.put(source.getId(), horairesA);
-		horairesArrets.put(destination.getId(), horairesB);
+		// hashmap contient deux entrées : les listes des horaires des arrets source et destination pour la ligne choisie
+		HashMap<String, HoraireJour> horairesArrets = new HashMap<String, HoraireJour>();
+		Ligne l = lignes.get(ligneString);
+		Arret arretSource = l.getArrets().get(source.getId());
+		Arret arretDestination = l.getArrets().get(destination.getId());
+		List<HoraireJour> horairesSource = l.getHoraires(arretSource.getId());
+		for (int i=0;i<horairesSource.size();i++){
+			if (horairesSource.get(i).getJour().equals(jour)){
+				horairesArrets.put(source.getId(), horairesSource.get(i));
+				break;
+			}
+		}
+		List<HoraireJour> horairesDestination = l.getHoraires(arretDestination.getId());
+		for (int i=0;i<horairesDestination.size();i++){
+			if (horairesDestination.get(i).getJour().equals(jour)){
+				horairesArrets.put(destination.getId(), horairesDestination.get(i));
+				break;
+			}
+		}
 		return horairesArrets;
 	}
 
