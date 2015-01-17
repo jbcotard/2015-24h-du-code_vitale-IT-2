@@ -3,11 +3,11 @@ package fr.sesamvitale.l24hc2015.urbanflow.data;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Horaire {
+public class HoraireJour {
 	private String jour;
 	private List<String> horaires;
 	
-	public Horaire(){
+	public HoraireJour(){
 		horaires = new ArrayList<String>();
 	}
 

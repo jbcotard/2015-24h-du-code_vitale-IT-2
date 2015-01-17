@@ -10,10 +10,10 @@ public class Ligne {
 	private String nombre_d_arrets;
 	private Arret destination;
 	private HashMap<Integer, Arret> arrets;
-	private List<Horaire> horaires;
+	private List<HoraireJour> horaires;
 	
 	public Ligne(){
-		horaires = new ArrayList<Horaire>();
+		horaires = new ArrayList<HoraireJour>();
 		arrets = new HashMap<Integer, Arret>();
 	}
 	
@@ -80,13 +80,13 @@ public class Ligne {
 	/**
 	 * @return the horaires
 	 */
-	public List<Horaire> getHoraires() {
+	public List<HoraireJour> getHoraires() {
 		return horaires;
 	}
 	/**
 	 * @param horaires the horaires to set
 	 */
-	public void ajouterHoraires(Horaire horaires) {
+	public void ajouterHoraires(HoraireJour horaires) {
 		this.horaires.add(horaires);
 	}
 

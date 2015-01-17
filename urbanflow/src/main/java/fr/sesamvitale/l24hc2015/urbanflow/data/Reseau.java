@@ -28,12 +28,18 @@ public class Reseau {
 		
 	}
 	
-	public List<Horaire> getHoraires(Arret source, Arret destination, String ligne)
+	public HashMap<String, List<HoraireJour>> getHoraires(Arret source, Arret destination, String ligne)
 	{
-		List<Horaire> horaires = new ArrayList<Horaire>();
+		// hashmap contant deux entrées : les listes des horaires des arrets source et destination pour la ligne choisie
+		HashMap<String, List<HoraireJour>> horairesArrets = new HashMap<String, List<HoraireJour>>();
+		List<HoraireJour> horairesA = new ArrayList<HoraireJour>();
+		List<HoraireJour> horairesB = new ArrayList<HoraireJour>();
+		// Remplissage des données avec JSON
 		
 		
-		return horaires;
+		horairesArrets.put(source.getId(), horairesA);
+		horairesArrets.put(destination.getId(), horairesB);
+		return horairesArrets;
 	}
 
 	/**
