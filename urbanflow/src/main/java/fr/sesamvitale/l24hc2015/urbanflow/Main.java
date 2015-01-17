@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 
 import fr.sesamvitale.l24hc2015.urbanflow.data.Reseau;
 import fr.sesamvitale.l24hc2015.urbanflow.map.MapBuilder;
+import fr.sesamvitale.l24hc2015.urbanflow.map.MapBuilderImpl;
 
 public class Main {
 
@@ -28,7 +29,7 @@ public class Main {
 		
 		
 		// 0 - Genere la MAP
-		MapBuilder mapBuilder = null;
+		MapBuilder mapBuilder = new MapBuilderImpl();
 		Reseau reseau = mapBuilder.buildReseau();
 		
 		// 2 - demande de jeu (connect )

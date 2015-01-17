@@ -30,7 +30,7 @@ public class MapBuilderImpl implements MapBuilder {
 		Reseau reseau = Reseau.getInstance();
 		try {
 			// create new file
-			directory = new File("c:/test");
+			directory = new File("src/main/resources/data");
 			paths = directory.listFiles();
 			for (File file : paths) {
 				if (file.getAbsolutePath().endsWith("json")) {
@@ -42,15 +42,15 @@ public class MapBuilderImpl implements MapBuilder {
 
 					Ligne ligne = new Ligne();
 					JSONObject obj = new JSONObject(jsonData);
-					ligne.setIdentifiant(obj.getString("track_id"));
+					ligne.setIdentifiant(""+obj.getInt("track_id"));
 					ligne.setNumero_de_ligne(obj.getString("track_number"));
-					ligne.setNombre_d_arrets(obj.getString("n_stops"));
+					ligne.setNombre_d_arrets(""+obj.getInt("n_stops"));
 
 					reseau.getLignes().put(ligne.getIdentifiant(), ligne);
 					
 					JSONObject track_dest = obj.getJSONObject("track_dest");
 
-					String idDest = track_dest.getString("id");
+					String idDest = ""+track_dest.getInt("id");
 
 					Arret destination = null;
 
@@ -59,9 +59,9 @@ public class MapBuilderImpl implements MapBuilder {
 					JSONArray stops = obj.getJSONArray("stops");
 					for (int i = 0; i < stops.length(); i++) {
 						JSONObject a = stops.getJSONObject(i);
-						String idArret = a.getString("id");
+						String idArret = ""+a.getInt("id");
 						Arret arret = new Arret(idArret, a.getString("name"),
-								a.getString("position"));
+								""+a.getInt("position"));
 
 						if (idDest.equals(idArret)) {
 							destination = arret;

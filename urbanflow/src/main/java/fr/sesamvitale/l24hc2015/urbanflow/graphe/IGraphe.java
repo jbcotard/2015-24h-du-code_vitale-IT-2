@@ -5,7 +5,7 @@ import fr.sesamvitale.l24hc2015.urbanflow.data.Reseau;
 
 public interface IGraphe {
 	
-	public Deplacement seDeplacer(int source, int target, String heure, String jour);
+	public abstract Deplacement seDeplacer(int source, int target, String heure, String jour);
 
 	public abstract void creerGraphe(Reseau reseau);
 

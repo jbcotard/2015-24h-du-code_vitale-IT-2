@@ -5,6 +5,7 @@ public class Liaison
 	private Arret source;
 	private Arret target;
 	private String ligne;
+	private int weight;
 	
 	public Liaison() 
 	{
@@ -54,6 +55,20 @@ public class Liaison
 	 */
 	public void setLigne(String ligne) {
 		this.ligne = ligne;
+	}
+
+	/**
+	 * @return the weight
+	 */
+	public int getWeight() {
+		return weight;
+	}
+
+	/**
+	 * @param weight the weight to set
+	 */
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
 	
 
