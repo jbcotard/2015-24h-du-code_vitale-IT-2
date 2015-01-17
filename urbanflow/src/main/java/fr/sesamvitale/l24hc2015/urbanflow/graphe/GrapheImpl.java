@@ -100,6 +100,9 @@ public class GrapheImpl implements IGraphe
 				break;
 			}
 		}
+		if (numArret+1>=horairesDestination.getHoraires().size()){
+			return horairesDestination.getHoraires().get(numArret);
+		}
 		return horairesDestination.getHoraires().get(numArret+1);
 	}
 	
