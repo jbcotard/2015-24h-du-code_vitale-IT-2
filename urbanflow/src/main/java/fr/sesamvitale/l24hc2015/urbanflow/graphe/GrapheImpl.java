@@ -19,7 +19,7 @@ import fr.sesamvitale.l24hc2015.urbanflow.utils.Temps;
 
 public class GrapheImpl implements IGraphe
 {
-	private static GrapheImpl instance;
+	private static IGraphe instance;
 	private DirectedWeightedMultigraph<Arret,Liaison> graphe;
 	private HashMap<String, Arret> arrets;
 	
@@ -28,7 +28,7 @@ public class GrapheImpl implements IGraphe
 		graphe = new DirectedWeightedMultigraph<Arret,Liaison>(Liaison.class);
 	}
 	
-	public static GrapheImpl getInstance()
+	public static IGraphe getInstance()
 	{
 		if (null == instance)
 		{
@@ -37,11 +37,12 @@ public class GrapheImpl implements IGraphe
 		return instance;
 	}
 	
-	public void creerGraphe()
+	@Override
+	public void creerGraphe(Reseau reseau)
 	{
 		graphe = new DirectedWeightedMultigraph<Arret,Liaison>(Liaison.class);
 		arrets = new HashMap<String, Arret>();
-		Reseau reseau = Reseau.getInstance();
+		//Reseau reseau = Reseau.getInstance();
 		for(Entry<String, Ligne> entry : reseau.getLignes().entrySet()) {
 			String nomLigne = entry.getKey();
 			Ligne ligne = entry.getValue();
