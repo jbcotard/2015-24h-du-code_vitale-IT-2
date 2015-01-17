@@ -124,7 +124,7 @@ public class GrapheImpl implements IGraphe
 	private int calculerPonderationDeuxArretsConsecutifs(String tempsDepart, Arret source, Arret target, String ligne, String jour)
 	{
 		int temps = calculerTempsDeuxArretsConsecutifs(tempsDepart, source, target, ligne, jour);
-		int incidents = calculerIncidents();
+		int incidents = calculerIncidents(source, tempsDepart);
 		return temps+incidents;
 	}
 
@@ -137,7 +137,9 @@ public class GrapheImpl implements IGraphe
 		}
 	}
 
-	private int calculerIncidents(){
+	private int calculerIncidents(Arret arret, String temps){
+		//parcourt de la liste des incidents
+		//si date actuelle a incident on ajoute la penalite
 		return 0;
 	}
 
@@ -145,19 +147,7 @@ public class GrapheImpl implements IGraphe
 		mettreAJourPonderations(heure, jour);
 		Arret source = arrets.get(""+s);
 		Arret target = arrets.get(""+t);
-		//		List<Liaison> chemin = dijkstraShortestPath(source, target);
-		//		if (chemin.size()>0){
-		//			Arret prochain = chemin.get(0).getTarget();
-		//			if (null != prochain){
-		//				Deplacement d = new Deplacement();
-		//				d.setNumArret(prochain.getName());
-		//				d.setNumLigne(chemin.get(0).getLigne());
-		//				d.setConnexion(getHoraire(heure, source, target, chemin.get(0).getLigne(), jour));
-		//				return d;
-		//			}
-		//		}else{
-		//			System.out.println("Chemin VIDE");
-		//		}
+
 		Liaison chemin = dijkstraShortestPath(source, target);
 
 		Arret prochain = chemin.getTarget();
@@ -168,7 +158,6 @@ public class GrapheImpl implements IGraphe
 			d.setConnexion(getHoraireDepart(heure, source, chemin.getLigne(), jour));
 			return d;
 		}
-
 		return null;
 	}
 
@@ -185,9 +174,6 @@ public class GrapheImpl implements IGraphe
 		dijkstra.execute(source);
 		Liaison arret = dijkstra.getNextArret(target);
 		return arret;
-		//DijkstraShortestPath<Arret,Liaison> pathFinder=new DijkstraShortestPath<Arret,Liaison>(graphe,source,target);
-		//List<Liaison> path=pathFinder.getPathEdgeList();
-		//return path;
 	}
 
 }

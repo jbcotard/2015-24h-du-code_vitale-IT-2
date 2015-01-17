@@ -17,19 +17,15 @@ import fr.sesamvitale.l24hc2015.urbanflow.data.Liaison;
 
 public class DijkstraAlgorithm {
 
-	private final List<Arret> nodes;
 	private final List<Liaison> edges;
 	private Set<Arret> settledNodes;
 	private Set<Arret> unSettledNodes;
 	private Map<Arret, Arret> predecessors;
 	private Map<String,Liaison> predecessorsLigne;
 	private Map<Arret, Integer> distance;
-	private int changementLigne = -1;
-	private String lignePrecedente = "";
 
 	public DijkstraAlgorithm(DirectedWeightedMultigraph<Arret,Liaison> graph) {
 		// create a copy of the array so that we can operate on this array
-		this.nodes = new ArrayList<Arret>(graph.vertexSet());
 		this.edges = new ArrayList<Liaison>(graph.edgeSet());
 	}
 
@@ -152,6 +148,9 @@ public class DijkstraAlgorithm {
 		}
 		// Put it into the correct order
 		Collections.reverse(path);
+//		for (int i=0;i<path.size();i++){
+//			System.out.println(path.get(i).getName());
+//		}
 		Arret suivant = path.get(1);
 		return predecessorsLigne.get(suivant.getId());
 	}

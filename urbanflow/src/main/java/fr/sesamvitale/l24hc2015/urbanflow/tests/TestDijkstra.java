@@ -24,8 +24,7 @@ public class TestDijkstra {
 		Reseau r = mapBuilder.buildReseau();
 		IGraphe g = GrapheImpl.getInstance();
 		g.creerGraphe(r);
-		Deplacement d = g.seDeplacer(998, 1004, "07:46:00", "me");
-		System.out.println("ARRET : "+d.getNumArret()+"\nLIGNE : "+d.getNumLigne());
+		Deplacement d = g.seDeplacer(1370, 1326, "07:46:00", "me");
 		
 		
 	}
