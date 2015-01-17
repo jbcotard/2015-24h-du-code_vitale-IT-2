@@ -20,10 +20,21 @@ public class ReponseConnectBuilder {
 
 		JSONObject obj = new JSONObject(jsonData);
 		rc.setStatus(obj.getString("status"));
-		rc.setUrlVerify(obj.getString("url"));
+		String url = obj.getString("url");
+		
+		rc.setUrlVerify(url);
+		
+		int gameTokenStart = url.indexOf("/", 1) + 1;
+		gameTokenStart = url.indexOf("/", gameTokenStart) + 1;
+		int gameTokenEnd = url.indexOf("/", gameTokenStart);
+		String gameToken = url.substring(gameTokenStart, gameTokenEnd);
+		
+		rc.setGameToken(gameToken);
+		
 		rc.setMessage(obj.getString("message"));
 		rc.setSuccess(obj.getBoolean("success"));
 
+		
 		return rc;
 	}
 }

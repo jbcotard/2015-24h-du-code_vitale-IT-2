@@ -10,6 +10,16 @@ public class ReponseConnect {
 	 */
 	
 	private String urlVerify;
+	private String gameToken;
+	public String getGameToken() {
+		return gameToken;
+	}
+
+
+	public void setGameToken(String gameToken) {
+		this.gameToken = gameToken;
+	}
+
 	private String status;
 	
 	private String message;
