@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -47,7 +48,7 @@ public class MapBuilderImpl implements MapBuilder {
 					ligne.setNombre_d_arrets(""+obj.getInt("n_stops"));
 
 					reseau.getLignes().put(ligne.getIdentifiant(), ligne);
-					
+
 					JSONObject track_dest = obj.getJSONObject("track_dest");
 
 					String idDest = ""+track_dest.getInt("id");
@@ -69,22 +70,31 @@ public class MapBuilderImpl implements MapBuilder {
 							ligne.setDestination(destination);
 						}
 						ligne.ajouterArrets(idArret, arret);
-						JSONObject scheduleArret = schedule.getJSONObject("id");
+						Iterator<String> keys = schedule.keys();
+						while(keys.hasNext()){
+							String key = keys.next();
+							try{
+								JSONObject scheduleArret = schedule.getJSONObject(key);
+								List<HoraireJour> horaireJours = new ArrayList<HoraireJour>();
 
-						List<HoraireJour> horaireJours = new ArrayList<HoraireJour>();
+								for (int ij = 0; ij < jours.length; ij++) {
+									String jour = jours[ij];
+									JSONArray horaires = scheduleArret.getJSONArray(jour);
+									HoraireJour horaireJour = new HoraireJour();
+									horaireJour.setJour(jour);
 
-						for (int ij = 0; ij < jours.length; ij++) {
-							String jour = jours[ij];
-							JSONArray horaires = scheduleArret.getJSONArray(jour);
-							HoraireJour horaireJour = new HoraireJour();
-							horaireJour.setJour(jour);
-							
-							for (int ihj = 0; ihj < horaires.length(); ihj++) {
-								String horaire = horaires.getString(ihj);
-								horaireJour.ajouterHoraire(horaire);
-								
-								ligne.ajouterHoraires(horaireJours, idArret);
+									for (int ihj = 0; ihj < horaires.length(); ihj++) {
+										String horaire = horaires.getString(ihj);
+										horaireJour.ajouterHoraire(horaire);
+
+										ligne.ajouterHoraires(horaireJours, key);
+									}
+								}
+
+							}catch(Exception e){
+
 							}
+
 						}
 					}
 
