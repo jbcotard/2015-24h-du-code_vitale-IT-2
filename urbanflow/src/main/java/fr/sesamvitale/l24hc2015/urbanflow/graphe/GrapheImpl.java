@@ -1,7 +1,11 @@
 package fr.sesamvitale.l24hc2015.urbanflow.graphe;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -20,6 +24,7 @@ public class GrapheImpl implements IGraphe
 	private static IGraphe instance;
 	private DirectedWeightedMultigraph<Arret,Liaison> graphe;
 	private HashMap<String, Arret> arrets;
+	private Reseau reseau;
 	private String lignePrecedente;
 
 	private GrapheImpl()
@@ -39,6 +44,7 @@ public class GrapheImpl implements IGraphe
 	@Override
 	public void creerGraphe(Reseau reseau)
 	{
+		this.reseau = reseau;
 		graphe = new DirectedWeightedMultigraph<Arret,Liaison>(Liaison.class);
 		arrets = new HashMap<String, Arret>();
 		//Reseau reseau = Reseau.getInstance();
@@ -46,7 +52,13 @@ public class GrapheImpl implements IGraphe
 			String nomLigne = entry.getKey();
 			Ligne ligne = entry.getValue();
 			Arret arretPrecedent = null;
-			for(Entry<String, Arret> entryLigne : ligne.getArrets().entrySet()) {
+			final List<Entry<String, Arret>> arretsTries = new ArrayList<Entry<String, Arret>>(ligne.getArrets().entrySet());
+			Collections.sort(arretsTries, new Comparator<Entry<String, Arret>>() {
+				public int compare(final Entry<String, Arret> e1, final Entry<String, Arret> e2) {
+					return e1.getValue().getPosition().compareTo(e2.getValue().getPosition());
+				}
+			});
+			for (final Entry<String, Arret> entryLigne : arretsTries) {
 				Arret arret = entryLigne.getValue();
 				if (!arrets.containsKey(arret.getId()))
 				{
@@ -56,7 +68,7 @@ public class GrapheImpl implements IGraphe
 				if (null != arretPrecedent){
 					Liaison liaison = new Liaison(arretPrecedent, arrets.get(arret.getId()),nomLigne);
 					ajouterLiaison(liaison);
-					
+
 				}
 				arretPrecedent = arrets.get(arret.getId());
 			}
@@ -74,7 +86,7 @@ public class GrapheImpl implements IGraphe
 	}
 
 	private String getHoraire(String tempsDepart, Arret source, Arret target, String ligne, String jour){
-		HashMap<String, HoraireJour> horairesArrets = Reseau.getInstance().getHoraires(source, target, ligne,jour);
+		HashMap<String, HoraireJour> horairesArrets = reseau.getHoraires(source, target, ligne,jour);
 		HoraireJour horairesSource = horairesArrets.get(source.getId());
 		HoraireJour horairesDestination = horairesArrets.get(target.getId());
 		int numArret = 0;
@@ -107,7 +119,6 @@ public class GrapheImpl implements IGraphe
 
 		for (Liaison e : edges) {
 			int ponderation = calculerPonderationDeuxArretsConsecutifs(tempsDepart,e.getSource(),e.getTarget(),e.getLigne(),jour);
-			graphe.setEdgeWeight(e, ponderation);
 			e.setWeight(ponderation);
 		}
 	}
@@ -118,8 +129,8 @@ public class GrapheImpl implements IGraphe
 
 	public Deplacement seDeplacer(int s, int t, String heure, String jour){
 		mettreAJourPonderations(heure, jour);
-		Arret source = arrets.get(s);
-		Arret target = arrets.get(t);
+		Arret source = arrets.get(""+s);
+		Arret target = arrets.get(""+t);
 		//		List<Liaison> chemin = dijkstraShortestPath(source, target);
 		//		if (chemin.size()>0){
 		//			Arret prochain = chemin.get(0).getTarget();

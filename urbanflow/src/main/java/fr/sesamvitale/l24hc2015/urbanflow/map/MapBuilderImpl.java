@@ -76,6 +76,7 @@ public class MapBuilderImpl implements MapBuilder {
 							try{
 								JSONObject scheduleArret = schedule.getJSONObject(key);
 								List<HoraireJour> horaireJours = new ArrayList<HoraireJour>();
+								ligne.ajouterHoraires(horaireJours, key);
 
 								for (int ij = 0; ij < jours.length; ij++) {
 									String jour = jours[ij];
@@ -86,9 +87,8 @@ public class MapBuilderImpl implements MapBuilder {
 									for (int ihj = 0; ihj < horaires.length(); ihj++) {
 										String horaire = horaires.getString(ihj);
 										horaireJour.ajouterHoraire(horaire);
-
-										ligne.ajouterHoraires(horaireJours, key);
 									}
+									horaireJours.add(horaireJour);
 								}
 
 							}catch(Exception e){
