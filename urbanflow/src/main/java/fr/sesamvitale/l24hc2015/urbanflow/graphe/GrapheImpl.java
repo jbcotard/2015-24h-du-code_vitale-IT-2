@@ -114,7 +114,7 @@ public class GrapheImpl implements IGraphe
 				return tempsArret;
 			}
 		}
-		return "";
+		return "00:00:00";
 	}
 
 	private int calculerTempsDeuxArretsConsecutifs(String tempsDepart, Arret source, Arret target, String ligne, String jour)
@@ -173,7 +173,7 @@ public class GrapheImpl implements IGraphe
 			d.setNumArret(prochain.getId());
 			Ligne l = reseau.getLignes().get(chemin.getLigne());
 			d.setNumLigne(l.getNumero_de_ligne());
-			d.setConnexion(getHoraireDepart(heure, prochain, chemin.getLigne(), jour));
+			d.setConnexion(getHoraireDepart(heure, source, chemin.getLigne(), jour));
 			return d;
 		}
 		return null;
