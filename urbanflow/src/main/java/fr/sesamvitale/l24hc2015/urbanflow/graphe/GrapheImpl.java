@@ -20,6 +20,11 @@ import fr.sesamvitale.l24hc2015.urbanflow.data.Reseau;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.Incident;
 import fr.sesamvitale.l24hc2015.urbanflow.util.Temps;
 
+/**
+ * Implémentation de la map et de l'algorithme du chemin le plus court
+ * @author user
+ *
+ */
 public class GrapheImpl implements IGraphe
 {
 	private static IGraphe instance;
@@ -48,11 +53,11 @@ public class GrapheImpl implements IGraphe
 		this.reseau = reseau;
 		graphe = new DirectedWeightedMultigraph<Arret,Liaison>(Liaison.class);
 		arrets = new HashMap<String, Arret>();
-		//Reseau reseau = Reseau.getInstance();
 		for(Entry<String, Ligne> entry : reseau.getLignes().entrySet()) {
 			String nomLigne = entry.getKey();
 			Ligne ligne = entry.getValue();
 			Arret arretPrecedent = null;
+			//Tri des arrêts selon leur position
 			final List<Entry<String, Arret>> arretsTries = new ArrayList<Entry<String, Arret>>(ligne.getArrets().entrySet());
 			Collections.sort(arretsTries, new Comparator<Entry<String, Arret>>() {
 				public int compare(final Entry<String, Arret> e1, final Entry<String, Arret> e2) {
@@ -87,6 +92,15 @@ public class GrapheImpl implements IGraphe
 		graphe.addEdge(l.getSource(),l.getTarget(),l);
 	}
 
+	/**
+	 * Récupération de l'horaire d'arrivée
+	 * @param tempsDepart heure du départ
+	 * @param source arret de départ
+	 * @param target arret d'arrivée
+	 * @param ligne ligne de transport
+	 * @param jour jour
+	 * @return
+	 */
 	private String getHoraire(String tempsDepart, Arret source, Arret target, String ligne, String jour){
 		HashMap<String, HoraireJour> horairesArrets = reseau.getHoraires(source, target, ligne,jour);
 		HoraireJour horairesSource = horairesArrets.get(source.getId());
@@ -104,7 +118,15 @@ public class GrapheImpl implements IGraphe
 		}
 		return horairesDestination.getHoraires().get(numArret+1);
 	}
-	
+
+	/**
+	 * Récupération de l'horaire de départ
+	 * @param tempsDepart heure du départ
+	 * @param source arret de départ
+	 * @param ligne ligne de transport
+	 * @param jour jour
+	 * @return
+	 */
 	private String getHoraireDepart(String tempsDepart, Arret source, String ligne, String jour){
 		HashMap<String, HoraireJour> horairesArrets = reseau.getHoraires(source, null, ligne,jour);
 		HoraireJour horairesSource = horairesArrets.get(source.getId());
@@ -114,6 +136,7 @@ public class GrapheImpl implements IGraphe
 				return tempsArret;
 			}
 		}
+		//Si on a pris le dernier bus, on attend le lendemain !
 		if (jour.equals("lu")){
 			jour = "ma";
 		}else{
@@ -146,6 +169,15 @@ public class GrapheImpl implements IGraphe
 		return tempsArret;
 	}
 
+	/**
+	 * Calcul de la durée entre deux arrets
+	 * @param tempsDepart heure du départ
+	 * @param source arret de départ
+	 * @param target arret d'arrivée
+	 * @param ligne ligne de transport
+	 * @param jour jour
+	 * @return
+	 */
 	private int calculerTempsDeuxArretsConsecutifs(String tempsDepart, Arret source, Arret target, String ligne, String jour)
 	{
 		String horairesMinimumDestination = getHoraire(tempsDepart, source, target, ligne, jour);
@@ -153,6 +185,15 @@ public class GrapheImpl implements IGraphe
 		return Temps.getDuree(horairesMinimumDestination, tempsDepart);
 	}
 
+	/**
+	 * Calcul de la pondération d'une liaison (temps+incidents)
+	 * @param tempsDepart heure du départ
+	 * @param source arret de départ
+	 * @param target arret d'arrivée
+	 * @param ligne ligne de transport
+	 * @param jour jour
+	 * @return
+	 */
 	private int calculerPonderationDeuxArretsConsecutifs(String tempsDepart, Arret source, Arret target, String ligne, String jour)
 	{
 		int temps = calculerTempsDeuxArretsConsecutifs(tempsDepart, source, target, ligne, jour);
@@ -160,6 +201,11 @@ public class GrapheImpl implements IGraphe
 		return temps+incidents;
 	}
 
+	/**
+	 * Mise a jour des ponderations
+	 * @param tempsDepart heure de depart
+	 * @param jour jour actuel
+	 */
 	private void mettreAJourPonderations(String tempsDepart, String jour){
 		Set<Liaison> edges = graphe.edgeSet();
 
@@ -169,6 +215,12 @@ public class GrapheImpl implements IGraphe
 		}
 	}
 
+	/**
+	 * Calcul des incidents a l'arret
+	 * @param arret arret où chercher les incidents
+	 * @param temps heure actuelle
+	 * @return
+	 */
 	private int calculerIncidents(Arret arret, String temps){
 		if (null == incidents) {
 			return 0;
@@ -189,6 +241,7 @@ public class GrapheImpl implements IGraphe
 		return tempsTT;
 	}
 
+	@Override
 	public Deplacement seDeplacer(int s, int t, String heure, String jour){
 		mettreAJourPonderations(heure, jour);
 		Arret source = arrets.get(""+s);
@@ -228,8 +281,6 @@ public class GrapheImpl implements IGraphe
 	@Override
 	public void gererIncidents(List<Incident> incidents) {
 		this.incidents = incidents;
-		
+
 	}
-
-
 }

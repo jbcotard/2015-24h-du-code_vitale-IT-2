@@ -15,6 +15,11 @@ import fr.sesamvitale.l24hc2015.urbanflow.data.Arret;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Distance;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Liaison;
 
+/**
+ * Algorithme Dijkstra
+ * @author user
+ *
+ */
 public class DijkstraAlgorithm {
 
 	private final List<Liaison> edges;
@@ -112,28 +117,12 @@ public class DijkstraAlgorithm {
 			return d;
 		}
 	}
-
-	/*
-	 * This method returns the path from the source to the selected target and
-	 * NULL if no path exists
-	 */
-	public LinkedList<Arret> getPath(Arret target) {
-		LinkedList<Arret> path = new LinkedList<Arret>();
-		Arret step = target;
-		// check if a path exists
-		if (predecessors.get(step) == null) {
-			return null;
-		}
-		path.add(step);
-		while (predecessors.get(step) != null) {
-			step = predecessors.get(step);
-			path.add(step);
-		}
-		// Put it into the correct order
-		Collections.reverse(path);
-		return path;
-	}
 	
+	/**
+	 * Récupération du prochain arret, selon l'algorithme
+	 * @param target
+	 * @return
+	 */
 	public Liaison getNextArret(Arret target) {
 		LinkedList<Arret> path = new LinkedList<Arret>();
 		Arret step = target;
@@ -148,9 +137,6 @@ public class DijkstraAlgorithm {
 		}
 		// Put it into the correct order
 		Collections.reverse(path);
-//		for (int i=0;i<path.size();i++){
-//			System.out.println(path.get(i).getName());
-//		}
 		Arret suivant = path.get(1);
 		return predecessorsLigne.get(suivant.getId());
 	}
