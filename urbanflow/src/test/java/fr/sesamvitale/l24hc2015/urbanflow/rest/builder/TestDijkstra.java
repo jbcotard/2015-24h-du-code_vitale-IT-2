@@ -40,9 +40,21 @@ public class TestDijkstra {
 		MapBuilder mapBuilder = new MapBuilderImpl();
 		Reseau r = mapBuilder.buildReseau();
 		IGraphe g = GrapheImpl.getInstance();
-		g.gererIncidents(getIncidents());
+		//g.gererIncidents(getIncidents());
 		g.creerGraphe(r);
-		Deplacement d = g.seDeplacer(1066, 1326, "10:06:00", "me");
+		int arrivee = 1246;
+		int depart = 1232;
+		System.out.println("Départ du 1232 a 06:37:00");
+		
+		do{
+			Deplacement d = g.seDeplacer(depart, arrivee, "07:17:00", "je");
+			System.out.println("Ligne "+d.getNumLigne());
+			System.out.println("Arret "+d.getNumArret());
+			System.out.println("Horaire "+d.getConnexion());
+			System.out.println();
+			depart = Integer.parseInt(d.getNumArret());
+		}while(depart != arrivee);
+		
 
 
 	}

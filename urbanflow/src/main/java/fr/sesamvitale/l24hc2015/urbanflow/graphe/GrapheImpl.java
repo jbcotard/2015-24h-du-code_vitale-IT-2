@@ -173,7 +173,7 @@ public class GrapheImpl implements IGraphe
 			d.setNumArret(prochain.getId());
 			Ligne l = reseau.getLignes().get(chemin.getLigne());
 			d.setNumLigne(l.getNumero_de_ligne());
-			d.setConnexion(getHoraireDepart(heure, source, chemin.getLigne(), jour));
+			d.setConnexion(getHoraireDepart(heure, prochain, chemin.getLigne(), jour));
 			return d;
 		}
 		return null;
