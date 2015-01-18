@@ -12,12 +12,13 @@ public class ReponseMove {
 	private String status;
 	private String message;
 	private boolean success;
-	private int time;
+	private String time;
 	private int stopId;
 	private String stopName;
 	private int target;
 	private int penality;
 	private String score;
+	private String timeHeure;
 
 	public void setStatus(String status) {
 		this.status = status;
@@ -39,7 +40,7 @@ public class ReponseMove {
 	}
 
 
-	public int getTime() {
+	public String getTime() {
 		return time;
 	}
 
@@ -62,7 +63,7 @@ public class ReponseMove {
 		this.success = success;
 	}
 
-	public void setTime(int time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 
@@ -118,6 +119,19 @@ public class ReponseMove {
 	}
 
 
+	public void setTimeHeure(String timeHeure) {
+		this.timeHeure = timeHeure;
+	}
+
+
+	/**
+	 * @return the timeHeure
+	 */
+	public String getTimeHeure() {
+		return timeHeure;
+	}
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -142,6 +156,8 @@ public class ReponseMove {
 		builder.append(penality);
 		builder.append(", score=");
 		builder.append(score);
+		builder.append(", timeHeure=");
+		builder.append(timeHeure);
 		builder.append("]");
 		return builder.toString();
 	}

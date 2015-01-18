@@ -121,13 +121,14 @@ public class Main {
 							+ reponseVerify.getMonthName() + " "
 							+ deplacement.getConnexion() + " "
 							+ reponseVerify.getConnexionYear(),
-					deplacement.getNumArret(), "move");
+					/*deplacement.getNumArret()*/ String.valueOf(currentStopId), "move");
 
 			// analyse reponse move
 			currentStopId = reponseMove.getStopId();
 			if (reponseMove.isRerouted()) {
 			currentTarget = reponseMove.getTarget();
 			}
+			currentConnexion = reponseMove.getTimeHeure();
 
 			++compteur;
 
