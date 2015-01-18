@@ -43,6 +43,8 @@ public class Main {
 		String equipe_TOKEN = "482f6c3c786e98f89dbe6e7e1ace1aef717949dc3f92fa01870fdd8ea6e18f96";
 		String botvitale2_SECRET = "361581db8f84766d2912241aa17778fce64b91e05db18616877b2d44af3099aa";
 		String botvitale2_TOKEN = "ea3b31b7956ba470a0545b79e4069d71";
+		
+		String MODE_GAME = "training";
 
 		// 0 - Genere la MAP
 		System.out.println("");
@@ -61,7 +63,7 @@ public class Main {
 		System.out.println("");
 		System.out.println("Demande d'un jeu");
 		ReponseConnect reponseConnect = ConnectGameServer.connect(
-				botvitale2_SECRET, botvitale2_TOKEN);
+				botvitale2_SECRET, botvitale2_TOKEN, MODE_GAME);
 
 		// 2bis - gestion des incidents
 		// gestion des incidents
