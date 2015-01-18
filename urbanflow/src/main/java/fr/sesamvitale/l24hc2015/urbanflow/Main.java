@@ -113,8 +113,8 @@ public class Main {
 
 		
 		System.out.println("");
-		System.out.println("graphe > currentStopId: "
-				+ currentStopId + " currentTarget:" + currentTarget
+		System.out.println("graphe > nextStopId: "
+				+ nextStopId + " currentTarget:" + currentTarget
 				+ " currentTime:" + currentTime
 				+ " reponseVerify.getJour():" + reponseVerify.getJour());
 
@@ -124,6 +124,7 @@ public class Main {
 
 		System.out.println("    << " + deplacement);
 
+		boolean isFirst = true;
 		//deplacement.setConnexion(currentTime);
 		do {
 
@@ -156,6 +157,12 @@ public class Main {
 			// calcul itineraire - deplacement suivant
 			deplacement = graphe.seDeplacer(currentStopId, currentTarget,
 					currentTime, reponseVerify.getJour());
+			
+			
+//			if (isFirst) {
+//				deplacement.setConnexion(currentTime);
+//				isFirst = false;
+//			}
 
 			System.out.println("    << " + deplacement);
 
