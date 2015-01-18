@@ -11,6 +11,10 @@ import fr.sesamvitale.l24hc2015.urbanflow.data.Reseau;
  */
 public interface MapBuilder {
 
+	/**
+	 * Création du réseau a partir des fichiers JSON
+	 * @return
+	 */
 	Reseau buildReseau();
 
 }

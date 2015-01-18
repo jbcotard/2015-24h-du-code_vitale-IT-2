@@ -19,6 +19,11 @@ import fr.sesamvitale.l24hc2015.urbanflow.data.HoraireJour;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Ligne;
 import fr.sesamvitale.l24hc2015.urbanflow.data.Reseau;
 
+/**
+ * Création de la carte
+ * @author user
+ *
+ */
 public class MapBuilderImpl implements MapBuilder {
 
 	String[] jours = { "lu", "ma", "me", "je", "ve", "sa", "di" };
@@ -30,10 +35,11 @@ public class MapBuilderImpl implements MapBuilder {
 
 		Reseau reseau = Reseau.getInstance();
 		try {
-			// create new file
+			// Ouverture du répertoire
 			directory = new File("src/main/resources/data");
 			paths = directory.listFiles();
 			for (File file : paths) {
+				//Parcourt des fichiers
 				if (file.getAbsolutePath().endsWith("json")) {
 					FileInputStream fis = new FileInputStream(file);
 					InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
@@ -90,14 +96,11 @@ public class MapBuilderImpl implements MapBuilder {
 									}
 									horaireJours.add(horaireJour);
 								}
-
 							}catch(Exception e){
 
 							}
-
 						}
 					}
-
 				}
 			}
 		} catch (FileNotFoundException e) {
