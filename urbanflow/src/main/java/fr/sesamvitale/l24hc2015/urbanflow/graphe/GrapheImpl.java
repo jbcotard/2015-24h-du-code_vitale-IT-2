@@ -166,7 +166,9 @@ public class GrapheImpl implements IGraphe
 		Arret target = arrets.get(""+t);
 
 		Liaison chemin = dijkstraShortestPath(source, target);
-
+		if (null == chemin){
+			return null;
+		}
 		Arret prochain = chemin.getTarget();
 		if (null != prochain){
 			Deplacement d = new Deplacement();
