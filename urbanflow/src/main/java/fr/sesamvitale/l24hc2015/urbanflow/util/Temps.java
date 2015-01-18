@@ -80,6 +80,17 @@ public class Temps {
 		retour.setHeures(heure);
 		return retour;
 	}
+	
+	public static Temps ajouterMinute(Temps t1, int minute) {
+		Temps retour = new Temps();
+		retour.setSecondes(0);
+		int minutes = t1.getMinutes() + minute;
+		int retenue = minutes / 60;
+		int heure = t1.getHeures()  + retenue;
+		retour.setMinutes(minutes % 60);
+		retour.setHeures(heure);
+		return retour;
+	}
 
 	/**
 	 * 

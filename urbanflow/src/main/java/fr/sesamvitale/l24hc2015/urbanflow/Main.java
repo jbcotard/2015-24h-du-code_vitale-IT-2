@@ -33,10 +33,9 @@ public class Main {
 		String botvitale3_TOKEN = "5ea07f975cb3bdf02d73174a9e79a754";
 		String botvitale3_SECRET = "1b1813ac005fc70c505524d5e3294aae6cc453eaffbdb025b0d3d5616ec1d2f5";
 
-		
 		String botvitale4_TOKEN = "12cc040653de50b60bea6563e68629dc";
 		String botvitale4_SECRET = "3569c2dae3e3116877c9b41fd81e73cf983197a24d4261cca0190eb856758e41";
-		
+
 		String MODE_GAME = "training";
 
 		// 0 - Genere la MAP
@@ -57,12 +56,12 @@ public class Main {
 		System.out.println("Demande d'un jeu en mode " + MODE_GAME);
 		ReponseConnect reponseConnect = ConnectGameServer.connect(
 				botvitale2_SECRET, botvitale2_TOKEN, MODE_GAME);
-		
-		if ("arena".equals(MODE_GAME)){
-			 reponseConnect = ConnectGameServer.connect(
-					botvitale3_SECRET, botvitale3_TOKEN, MODE_GAME);
-			 reponseConnect = ConnectGameServer.connect(
-					botvitale4_SECRET, botvitale4_TOKEN, MODE_GAME);
+
+		if ("arena".equals(MODE_GAME)) {
+			reponseConnect = ConnectGameServer.connect(botvitale3_SECRET,
+					botvitale3_TOKEN, MODE_GAME);
+			reponseConnect = ConnectGameServer.connect(botvitale4_SECRET,
+					botvitale4_TOKEN, MODE_GAME);
 		}
 
 		// 2bis - gestion des incidents
@@ -83,11 +82,13 @@ public class Main {
 		System.out.println("Vérification du début du jeu");
 
 		ReponseVerify reponseVerify;
-		System.out.println("en attente d'autres BOT ...");
+		if ("arena".equals(MODE_GAME)) {
+			System.out.println("en attente d'autres BOT ...");
+		}
 		do {
 			reponseVerify = VerifyGameServer.verify(
 					reponseConnect.getURrlVerify(), botvitale2_SECRET);
-			
+
 		} while (!reponseVerify.isGameStarting());
 
 		// 4 - jeu (move)
@@ -113,12 +114,11 @@ public class Main {
 		System.out.println("");
 		System.out.println("Position initiale : " + reponseVerify.toString());
 
-		
 		System.out.println("");
-		System.out.println("graphe > nextStopId: "
-				+ nextStopId + " currentTarget:" + currentTarget
-				+ " currentTime:" + currentTime
-				+ " reponseVerify.getJour():" + reponseVerify.getJour());
+		System.out.println("graphe > nextStopId: " + nextStopId
+				+ " currentTarget:" + currentTarget + " currentTime:"
+				+ currentTime + " reponseVerify.getJour():"
+				+ reponseVerify.getJour());
 
 		// calcul itineraire - 1er deplacement
 		Deplacement deplacement = graphe.seDeplacer(nextStopId, currentTarget,
@@ -127,32 +127,32 @@ public class Main {
 		System.out.println("    << " + deplacement);
 
 		boolean isFirst = true;
-		//deplacement.setConnexion(currentTime);
+		// deplacement.setConnexion(currentTime);
 		do {
 
-			//try {
-				// deplacement suivant
-				reponseMove = MoveGameServer.move(
-						reponseVerify.getUrlMove(),
-						botvitale2_SECRET,
-						deplacement.getNumLigne(),
-						reponseVerify.getConnexionDay() + " "
-								+ reponseVerify.getMonthName() + " "
-								+ deplacement.getConnexion() + " "
-								+ reponseVerify.getConnexionYear(),
-						String.valueOf(nextStopId), "move");
-//			} catch (JSONException e) {
-//				// Retry
-//				reponseMove = MoveGameServer.move(
-//						reponseVerify.getUrlMove(),
-//						botvitale2_SECRET,
-//						deplacement.getNumLigne(),
-//						reponseVerify.getConnexionDay() + " "
-//								+ reponseVerify.getMonthName() + " "
-//								+ deplacement.getConnexion() + " "
-//								+ reponseVerify.getConnexionYear(),
-//						String.valueOf(nextStopId), "move");
-//			}
+			// try {
+			// deplacement suivant
+			reponseMove = MoveGameServer.move(
+					reponseVerify.getUrlMove(),
+					botvitale2_SECRET,
+					deplacement.getNumLigne(),
+					reponseVerify.getConnexionDay() + " "
+							+ reponseVerify.getMonthName() + " "
+							+ deplacement.getConnexion() + " "
+							+ reponseVerify.getConnexionYear(),
+					String.valueOf(nextStopId), "move");
+			// } catch (JSONException e) {
+			// // Retry
+			// reponseMove = MoveGameServer.move(
+			// reponseVerify.getUrlMove(),
+			// botvitale2_SECRET,
+			// deplacement.getNumLigne(),
+			// reponseVerify.getConnexionDay() + " "
+			// + reponseVerify.getMonthName() + " "
+			// + deplacement.getConnexion() + " "
+			// + reponseVerify.getConnexionYear(),
+			// String.valueOf(nextStopId), "move");
+			// }
 
 			// analyse reponse move
 			currentStopId = reponseMove.getStopId();
@@ -165,19 +165,21 @@ public class Main {
 
 			// display
 			System.out.println("");
-			System.out.println("graphe > currentStopId: "
-					+ currentStopId + " currentTarget:" + currentTarget
-					+ " currentTime:" + currentTime
-					+ " reponseVerify.getJour():" + reponseVerify.getJour());
+			System.out.println("graphe > currentStopId: " + currentStopId
+					+ " currentTarget:" + currentTarget + " currentTime:"
+					+ currentTime + " reponseVerify.getJour():"
+					+ reponseVerify.getJour());
+			
+			
+			
 			// calcul itineraire - deplacement suivant
 			deplacement = graphe.seDeplacer(currentStopId, currentTarget,
 					currentTime, reponseVerify.getJour());
-			
-			
-			if (isFirst) {
-				deplacement.setConnexion(currentTime);
-				isFirst = false;
-			}
+
+//			if (isFirst) {
+//				deplacement.setConnexion(currentTime);
+//				isFirst = false;
+//			}
 
 			System.out.println("    << " + deplacement);
 
@@ -186,7 +188,7 @@ public class Main {
 			// verification partie encore active
 			// reponseVerify = VerifyGameServer.verify(
 			// reponseConnect.getURrlVerify(), botvitale2_SECRET);
-		} while (!reponseMove.isArrived() && compteur < 10);
+		} while (!reponseMove.isArrived() && compteur < 20);
 
 		System.out.println("");
 		System.out.println("Fin du jeu");

@@ -29,11 +29,14 @@ public class RSClientUtil {
 			if (conn.getResponseCode() != 200) {
 				scanner = new Scanner(conn.getErrorStream());
 				response = "Error From Server \n\n " + conn.getResponseCode();
+
+				System.err.println(response);
 			} else {
 				scanner = new Scanner(conn.getInputStream());
 				response = "Response From Server \n\n";
 			}
 			scanner.useDelimiter("\\Z");
+			
 			responseBody = /*response + */scanner.next();
 			scanner.close();
 			conn.disconnect();
@@ -59,6 +62,7 @@ public class RSClientUtil {
 			if (conn.getResponseCode() != 200) {
 				scanner = new Scanner(conn.getErrorStream());
 				response = "Error From Server \n\n " + conn.getResponseCode();
+				System.err.println(response);
 			} else {
 				scanner = new Scanner(conn.getInputStream());
 				response = "Response From Server \n\n";

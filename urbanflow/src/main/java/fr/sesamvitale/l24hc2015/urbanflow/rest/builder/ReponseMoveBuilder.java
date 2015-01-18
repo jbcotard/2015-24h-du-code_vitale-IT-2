@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import fr.sesamvitale.l24hc2015.urbanflow.rest.ReponseConnect;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.ReponseMove;
+import fr.sesamvitale.l24hc2015.urbanflow.util.Temps;
 
 /**
  * @author jb
@@ -86,6 +87,13 @@ public class ReponseMoveBuilder {
 						dateInString.indexOf("T") + 1,
 						dateInString.indexOf("T") + 9));
 
+				
+				Temps temps = Temps.convertStringToTemps(rc.getTimeHeure());
+				temps = Temps.ajouterMinute(temps, 1);
+				rc.setTimeHeure(Temps.convertTempsToString(temps));
+				
+				
+				
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

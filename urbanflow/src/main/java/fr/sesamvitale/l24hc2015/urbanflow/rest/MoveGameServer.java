@@ -2,7 +2,6 @@ package fr.sesamvitale.l24hc2015.urbanflow.rest;
 
 import org.json.JSONException;
 
-import fr.sesamvitale.l24hc2015.urbanflow.rest.builder.ReponseConnectBuilder;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.builder.ReponseMoveBuilder;
 import fr.sesamvitale.l24hc2015.urbanflow.util.RSClientUtil;
 
