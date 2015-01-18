@@ -149,10 +149,10 @@ public class GrapheImpl implements IGraphe
 		for (int i=0;i<incidents.size();i++){
 			Incident incident = incidents.get(i);
 			if (incident.getArretId().equals(arret.getId())){
-				if ((Temps.isPosterieur(Temps.convertStringToTemps(incident.getDateStart()), 
+				if ((Temps.isPosterieur(Temps.convertDateStringToTemps(incident.getDateStart()), 
 						Temps.convertStringToTemps(temps)) == 0)&&
 						(Temps.isPosterieur(Temps.convertStringToTemps(temps), 
-								Temps.convertStringToTemps(incident.getDateEnd())) == 0)){
+								Temps.convertDateStringToTemps(incident.getDateEnd())) == 0)){
 					return incident.getPenalty();
 				}
 			}

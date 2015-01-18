@@ -45,4 +45,34 @@ public class RSClientUtil {
 		return responseBody;
 	}
 
+	public static String sendGET(String urlWS) {
+		String responseBody = null;
+		try {
+			URL url = new URL(urlWS);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setDoOutput(true);
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Content-Type", "application/json");
+
+			Scanner scanner;
+			String response;
+			if (conn.getResponseCode() != 200) {
+				scanner = new Scanner(conn.getErrorStream());
+				response = "Error From Server \n\n " + conn.getResponseCode();
+			} else {
+				scanner = new Scanner(conn.getInputStream());
+				response = "Response From Server \n\n";
+			}
+			scanner.useDelimiter("\\Z");
+			responseBody = /*response + */scanner.next();
+			scanner.close();
+			conn.disconnect();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return responseBody;
+	}
+
 }

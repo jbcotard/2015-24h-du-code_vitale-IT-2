@@ -23,8 +23,10 @@ import fr.sesamvitale.l24hc2015.urbanflow.graphe.IGraphe;
 import fr.sesamvitale.l24hc2015.urbanflow.map.MapBuilder;
 import fr.sesamvitale.l24hc2015.urbanflow.map.MapBuilderImpl;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.ConnectGameServer;
+import fr.sesamvitale.l24hc2015.urbanflow.rest.IncidentsGameServer;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.MoveGameServer;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.ReponseConnect;
+import fr.sesamvitale.l24hc2015.urbanflow.rest.ReponseIncidents;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.ReponseMove;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.ReponseVerify;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.VerifyGameServer;
@@ -66,6 +68,8 @@ public class Main {
 		// ReponseIncident reponseInsident =
 		// IncidentGameServer.incidents(equipe_TOKEN);
 		// graphe.addIncidents(reponseInsident.getIncidents());
+		ReponseIncidents reponseInsidents = IncidentsGameServer.incidents(reponseConnect.getGameToken());
+		graphe.gererIncidents(reponseInsidents.getIncidents());
 
 		// 3 - Attente debut du jeu (verify)
 		// loop attente
