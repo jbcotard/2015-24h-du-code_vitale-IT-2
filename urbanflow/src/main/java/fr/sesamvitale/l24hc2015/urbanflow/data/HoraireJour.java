@@ -3,6 +3,11 @@ package fr.sesamvitale.l24hc2015.urbanflow.data;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Modélisation des horaires d'un jour
+ * @author user
+ *
+ */
 public class HoraireJour {
 	private String jour;
 	private List<String> horaires;
@@ -35,5 +40,4 @@ public class HoraireJour {
 	public void ajouterHoraire(String horaire){
 		horaires.add(horaire);
 	}
-
 }

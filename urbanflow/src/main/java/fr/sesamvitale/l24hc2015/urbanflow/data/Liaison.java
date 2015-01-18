@@ -1,5 +1,10 @@
 package fr.sesamvitale.l24hc2015.urbanflow.data;
 
+/**
+ * Modélisation d'une liaison entre deux arrets
+ * @author user
+ *
+ */
 public class Liaison 
 {
 	private Arret source;
@@ -24,6 +29,7 @@ public class Liaison
 	 * @return the source
 	 */
 	public Arret getSource() {
+		
 		return source;
 	}
 	/**
@@ -32,24 +38,28 @@ public class Liaison
 	public void setSource(Arret source) {
 		this.source = source;
 	}
+	
 	/**
 	 * @return the target
 	 */
 	public Arret getTarget() {
 		return target;
 	}
+	
 	/**
 	 * @param target the target to set
 	 */
 	public void setTarget(Arret target) {
 		this.target = target;
 	}
+	
 	/**
 	 * @return the ligne
 	 */
 	public String getLigne() {
 		return ligne;
 	}
+	
 	/**
 	 * @param ligne the ligne to set
 	 */
@@ -70,6 +80,4 @@ public class Liaison
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
-	
-
 }
