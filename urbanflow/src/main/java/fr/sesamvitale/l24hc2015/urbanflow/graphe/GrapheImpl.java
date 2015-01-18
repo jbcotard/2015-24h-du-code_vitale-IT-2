@@ -94,7 +94,7 @@ public class GrapheImpl implements IGraphe
 		int numArret = 0;
 		for (int j=0;j<horairesSource.getHoraires().size();j++){
 			String tempsArret = horairesSource.getHoraires().get(j);
-			if (Temps.isPosterieur(Temps.convertStringToTemps(tempsArret), Temps.convertStringToTemps(tempsDepart)) >= 0){
+			if (Temps.isPosterieur(Temps.convertStringToTemps(tempsArret), Temps.convertStringToTemps(tempsDepart)) == 1){
 				numArret = j;
 				break;
 			}
@@ -110,7 +110,7 @@ public class GrapheImpl implements IGraphe
 		HoraireJour horairesSource = horairesArrets.get(source.getId());
 		for (int j=0;j<horairesSource.getHoraires().size();j++){
 			String tempsArret = horairesSource.getHoraires().get(j);
-			if (Temps.isPosterieur(Temps.convertStringToTemps(tempsArret), Temps.convertStringToTemps(tempsDepart)) >= 0){
+			if (Temps.isPosterieur(Temps.convertStringToTemps(tempsArret), Temps.convertStringToTemps(tempsDepart)) == 1){
 				return tempsArret;
 			}
 		}
