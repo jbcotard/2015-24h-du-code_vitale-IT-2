@@ -30,8 +30,8 @@ public class ReponseVerifyBuilder {
 	public static ReponseVerify getReponseVerify(String jsonData) {
 		ReponseVerify rc = new ReponseVerify();
 
-		System.out.println(jsonData); 
-		
+		System.out.println("    << " + jsonData);
+
 		JSONObject obj = new JSONObject(jsonData);
 		rc.setStatus(obj.getString("status"));
 		rc.setFirstStop(obj.getJSONObject("first_stop").getInt("id"));
@@ -46,7 +46,7 @@ public class ReponseVerifyBuilder {
 		Date date;
 		try {
 			date = sdf.parse(dateInString);
-			//System.out.println(dateInString + " parse > "+ date.toString());
+			// System.out.println(dateInString + " parse > "+ date.toString());
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(date);
 
@@ -57,15 +57,18 @@ public class ReponseVerifyBuilder {
 			rc.setJour(semaine[d - 1]);
 
 			SimpleDateFormat sdfD = new SimpleDateFormat("HH:mm:ss");
-			rc.setHeure(/*sdfD.format(date)*/ dateInString.substring(dateInString.indexOf("T")+1,dateInString.indexOf("T")+9) );
+			rc.setHeure(/* sdfD.format(date) */dateInString.substring(
+					dateInString.indexOf("T") + 1,
+					dateInString.indexOf("T") + 9));
 
 			// SimpleDateFormat sdfD2 = new
 			// SimpleDateFormat("dd MMM HH:mm:ss yyyy");
 			// rc.setDateConnexion(sdfD2.format(date));
-			rc.setDateConnexion(calendar.get(Calendar.DAY_OF_MONTH) + " "  + monthName + " "
-					+ rc.getHeure() + " " + calendar.get(Calendar.YEAR));
-			
-			rc.setConnexionDay(calendar.get(Calendar.DAY_OF_MONTH) );
+			rc.setDateConnexion(calendar.get(Calendar.DAY_OF_MONTH) + " "
+					+ monthName + " " + rc.getHeure() + " "
+					+ calendar.get(Calendar.YEAR));
+
+			rc.setConnexionDay(calendar.get(Calendar.DAY_OF_MONTH));
 			rc.setConnexionMonthName(monthName);
 			rc.setConnexionYear(calendar.get(Calendar.YEAR));
 

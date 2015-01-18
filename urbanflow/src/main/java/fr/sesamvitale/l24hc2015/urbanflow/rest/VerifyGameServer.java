@@ -15,9 +15,14 @@ public class VerifyGameServer {
 	public static ReponseVerify verify(String uRrlVerify,
 			String botvitale2_SECRET) {
 		// appel ws
+		String jsonDataInput = "{\"secret_token\":\"" + botvitale2_SECRET
+				+ "\"}";
 		String reponse = RSClientUtil.sendPOST("http://24hc15.haum.org" + uRrlVerify
-				, "{\"secret_token\":\"" + botvitale2_SECRET
-				+ "\"}");
+				, jsonDataInput);
+		
+		System.out.println("");
+		System.out.println( "verify > " + jsonDataInput);
+		
 		// contruction ReponseVerify
 		ReponseVerify reponseVerify = ReponseVerifyBuilder.getReponseVerify(reponse);
 		

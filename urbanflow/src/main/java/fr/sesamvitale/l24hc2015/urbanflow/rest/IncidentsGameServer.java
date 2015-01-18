@@ -8,6 +8,8 @@ public class IncidentsGameServer {
 	public static ReponseIncidents incidents(String gameToken) {
 		// appel ws
 		String reponse = RSClientUtil.sendGET("http://24hc15.haum.org/api/incidents/" + gameToken);
+		System.out.println("");
+		System.out.println( "incidents > " );
 		
 		// contruction ReponseIncidents
 		ReponseIncidents reponseIncidents = ReponseIncidentBuilder.getReponseIncident(reponse);

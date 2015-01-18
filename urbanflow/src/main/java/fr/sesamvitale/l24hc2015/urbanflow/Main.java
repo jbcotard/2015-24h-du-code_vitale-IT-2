@@ -109,12 +109,18 @@ public class Main {
 		System.out.println("");
 		System.out.println("Position initiale : " + reponseVerify.toString());
 
+		
+		System.out.println("");
+		System.out.println("graphe > currentStopId: "
+				+ currentStopId + " currentTarget:" + currentTarget
+				+ " currentTime:" + currentTime
+				+ " reponseVerify.getJour():" + reponseVerify.getJour());
+
 		// calcul itineraire - 1er deplacement
 		Deplacement deplacement = graphe.seDeplacer(nextStopId, currentTarget,
 				currentTime, reponseVerify.getJour());
 
-		System.out.println("");
-		System.out.println("calcul deplacement : " + deplacement);
+		System.out.println("    << " + deplacement);
 
 		//deplacement.setConnexion(currentTime);
 		do {
@@ -141,7 +147,7 @@ public class Main {
 
 			// display
 			System.out.println("");
-			System.out.println("calcul itineraire > currentStopId: "
+			System.out.println("graphe > currentStopId: "
 					+ currentStopId + " currentTarget:" + currentTarget
 					+ " currentTime:" + currentTime
 					+ " reponseVerify.getJour():" + reponseVerify.getJour());
@@ -149,8 +155,7 @@ public class Main {
 			deplacement = graphe.seDeplacer(currentStopId, currentTarget,
 					currentTime, reponseVerify.getJour());
 
-			System.out.println("");
-			System.out.println("calcul deplacement : " + deplacement);
+			System.out.println("    << " + deplacement);
 
 			nextStopId = Integer.parseInt(deplacement.getNumArret());
 

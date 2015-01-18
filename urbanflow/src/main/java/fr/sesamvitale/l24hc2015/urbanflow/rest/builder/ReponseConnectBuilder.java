@@ -18,6 +18,8 @@ public class ReponseConnectBuilder {
 	public static ReponseConnect getReponseConnect(String jsonData) throws JSONException {
 		ReponseConnect rc = new ReponseConnect();
 
+		
+		System.out.println("    << " + jsonData);
 		JSONObject obj = new JSONObject(jsonData);
 		rc.setStatus(obj.getString("status"));
 		String url = obj.getString("url");

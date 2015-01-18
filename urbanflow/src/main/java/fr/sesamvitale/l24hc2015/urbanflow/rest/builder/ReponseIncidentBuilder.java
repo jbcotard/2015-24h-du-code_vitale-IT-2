@@ -11,6 +11,8 @@ public class ReponseIncidentBuilder {
 	public static ReponseIncidents getReponseIncident(String jsonData) {
 		ReponseIncidents ris = new ReponseIncidents();
 
+		
+		System.out.println("    << " + jsonData);
 		JSONObject obj = new JSONObject(jsonData);
 
 		JSONArray incidents = obj.getJSONArray("incidents");

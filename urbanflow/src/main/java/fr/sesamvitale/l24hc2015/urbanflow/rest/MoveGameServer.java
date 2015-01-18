@@ -20,6 +20,7 @@ public class MoveGameServer {
 		String reponse = RSClientUtil.sendPOST("http://24hc15.haum.org" + uRrlVerify
 				, jsonDataInput);
 		
+		System.out.println("");
 		System.out.println( "move > " + jsonDataInput);
 		
 		// contruction ReponseMove

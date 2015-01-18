@@ -36,7 +36,7 @@ public class ReponseMoveBuilder {
 	public static ReponseMove getReponseConnect(String jsonData) {
 		ReponseMove rc = new ReponseMove();
 
-		System.out.println(jsonData);
+		System.out.println("    << " + jsonData);
 
 		JSONObject obj = new JSONObject(jsonData);
 		rc.setStatus(obj.getString("status"));
@@ -73,13 +73,16 @@ public class ReponseMoveBuilder {
 			Date date;
 			try {
 				date = sdf.parse(dateInString);
-				
-				System.out.println(dateInString + " parse > "+ date.toString());
+
+				// System.out.println(dateInString + " parse > "+
+				// date.toString());
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTime(date);
 
-				//SimpleDateFormat sdfD = new SimpleDateFormat("HH:mm:ss");
-				rc.setTimeHeure(/*sdfD.format(date)*/ dateInString.substring(dateInString.indexOf("T")+1,dateInString.indexOf("T")+9) );
+				// SimpleDateFormat sdfD = new SimpleDateFormat("HH:mm:ss");
+				rc.setTimeHeure(/* sdfD.format(date) */dateInString.substring(
+						dateInString.indexOf("T") + 1,
+						dateInString.indexOf("T") + 9));
 
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
