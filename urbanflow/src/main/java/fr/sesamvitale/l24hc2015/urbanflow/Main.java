@@ -164,7 +164,7 @@ public class Main {
 
 			++compteur;
 
-			if (currentStopId == currentTarget) {
+			if (nextStopId == currentTarget) {
 				isFin = true;
 			} else {
 
