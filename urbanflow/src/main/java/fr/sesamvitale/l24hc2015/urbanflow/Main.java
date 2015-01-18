@@ -188,7 +188,7 @@ public class Main {
 			// verification partie encore active
 			// reponseVerify = VerifyGameServer.verify(
 			// reponseConnect.getURrlVerify(), botvitale2_SECRET);
-		} while (!reponseMove.isArrived() && compteur < 20);
+		} while (!reponseMove.isArrived());
 
 		System.out.println("");
 		System.out.println("Fin du jeu");

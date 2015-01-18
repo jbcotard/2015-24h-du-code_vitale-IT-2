@@ -114,7 +114,36 @@ public class GrapheImpl implements IGraphe
 				return tempsArret;
 			}
 		}
-		return "00:00:00";
+		if (jour.equals("lu")){
+			jour = "ma";
+		}else{
+			if (jour.equals("ma")){
+				jour = "me";
+			}else{
+				if (jour.equals("me")){
+					jour = "je";
+				}else{
+					if (jour.equals("je")){
+						jour = "ve";
+					}else{
+						if (jour.equals("ve")){
+							jour = "sa";
+						}else
+						{
+							if (jour.equals("sa")){
+								jour = "di";
+							}else{
+								jour = "lu";
+							}
+						}
+					}
+				}
+			}
+		}
+		horairesArrets = reseau.getHoraires(source, null, ligne,jour);
+		horairesSource = horairesArrets.get(source.getId());
+		String tempsArret = horairesSource.getHoraires().get(0);
+		return tempsArret;
 	}
 
 	private int calculerTempsDeuxArretsConsecutifs(String tempsDepart, Arret source, Arret target, String ligne, String jour)
