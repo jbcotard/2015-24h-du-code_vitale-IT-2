@@ -47,7 +47,7 @@ public class ReponseMoveBuilder {
 		if (!rc.isSuccess()) {
 			rc.setStopId(obj.getJSONObject("stop").getInt("id"));
 			rc.setStopName(obj.getJSONObject("stop").getString("name"));
-			rc.setPenality(obj.getInt("penality"));
+			rc.setPenality(obj.getInt("penalty"));
 		} else {
 			if ("moved".equals(rc.getStatus())
 					|| "rerouted".equals(rc.getStatus())) {
