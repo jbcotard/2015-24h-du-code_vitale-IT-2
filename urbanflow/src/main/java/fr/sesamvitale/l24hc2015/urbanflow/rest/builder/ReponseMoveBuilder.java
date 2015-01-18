@@ -60,6 +60,10 @@ public class ReponseMoveBuilder {
 			if ("rerouted".equals(rc.getStatus())) {
 				rc.setTarget(obj.getInt("target"));
 			}
+			
+			if ("arrived".equals(rc.getStatus())) {
+				rc.setScore(obj.getString("score"));
+			}
 		}
 		return rc;
 	}

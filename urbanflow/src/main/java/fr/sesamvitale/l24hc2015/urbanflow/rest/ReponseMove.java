@@ -17,6 +17,7 @@ public class ReponseMove {
 	private String stopName;
 	private int target;
 	private int penality;
+	private String score;
 
 	public void setStatus(String status) {
 		this.status = status;
@@ -94,6 +95,29 @@ public class ReponseMove {
 	}
 
 
+	public int getPenality() {
+		return penality;
+	}
+
+
+	public void setPenality(int penality) {
+		this.penality = penality;
+	}
+
+
+	public String getScore() {
+		return score;
+	}
+
+
+	/**
+	 * @param score the score to set
+	 */
+	public void setScore(String score) {
+		this.score = score;
+	}
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -114,18 +138,12 @@ public class ReponseMove {
 		builder.append(stopName);
 		builder.append(", target=");
 		builder.append(target);
+		builder.append(", penality=");
+		builder.append(penality);
+		builder.append(", score=");
+		builder.append(score);
 		builder.append("]");
 		return builder.toString();
-	}
-
-
-	public int getPenality() {
-		return penality;
-	}
-
-
-	public void setPenality(int penality) {
-		this.penality = penality;
 	}
 	
 	

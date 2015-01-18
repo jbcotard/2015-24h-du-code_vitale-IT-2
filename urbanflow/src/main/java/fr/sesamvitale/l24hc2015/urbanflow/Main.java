@@ -125,7 +125,9 @@ public class Main {
 
 			// analyse reponse move
 			currentStopId = reponseMove.getStopId();
+			if (reponseMove.isRerouted()) {
 			currentTarget = reponseMove.getTarget();
+			}
 
 			++compteur;
 
@@ -147,9 +149,8 @@ public class Main {
 		// affichage SCORE
 
 		System.out.println("");
-		System.out.println("SCORE : ");
+		System.out.println("SCORE : " + reponseMove.getScore());
 		System.out.println("nb mouvements : " + compteur);
 
 	}
-
 }
