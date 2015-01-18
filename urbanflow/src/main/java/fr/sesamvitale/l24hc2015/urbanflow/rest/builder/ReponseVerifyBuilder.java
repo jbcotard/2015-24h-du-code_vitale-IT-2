@@ -13,17 +13,20 @@ public class ReponseVerifyBuilder {
 
 	/**
 	 * {"status": "game_started", "first_stop": {"id": 1341, "name": "Folie"},
-	 *  "target": {"id": 1248, "name": "Leclerc-fleurus"}, 
-	 *  "success": true, "time": 0, 
-	 *  "url": "/api/play/b78f9a12e99a595c11f10ad5bb356a81/ea3b31b7956ba470a0545b79e4069d71/move",
-	 *   "message": "The game has started !",
-	 *    "dtstart": "2015-01-17T16:39:00+00:00"}
+	 * "target": {"id": 1248, "name": "Leclerc-fleurus"}, "success": true,
+	 * "time": 0, "url":
+	 * "/api/play/b78f9a12e99a595c11f10ad5bb356a81/ea3b31b7956ba470a0545b79e4069d71/move"
+	 * , "message": "The game has started !", "dtstart":
+	 * "2015-01-17T16:39:00+00:00"}
 	 * 
 	 * @param jsonData
 	 * @return
 	 */
-	private static String[] semaine = {"di", "lu","ma", "me", "je","ve", "sa"};
-	
+	private static String[] semaine = { "di", "lu", "ma", "me", "je", "ve",
+			"sa" };
+	private static String[] mois = { "Jan", "Fev", "Mar", "Apr", "May", "Jun",
+			"Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
 	public static ReponseVerify getReponseVerify(String jsonData) {
 		ReponseVerify rc = new ReponseVerify();
 
@@ -35,10 +38,9 @@ public class ReponseVerifyBuilder {
 		rc.setSuccess(obj.getBoolean("success"));
 		rc.setUrlMove(obj.getString("url"));
 		String dateInString = obj.getString("dtstart");
-		
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd'T'HH:mm:ssXXX");
-		
+
 		Date date;
 		try {
 			date = sdf.parse(dateInString);
@@ -46,20 +48,28 @@ public class ReponseVerifyBuilder {
 			calendar.setTime(date);
 
 			int d = calendar.get(Calendar.DAY_OF_WEEK);
-			int h = calendar.get(Calendar.HOUR_OF_DAY);
-			int m = calendar.get(Calendar.MINUTE );
-			int s = calendar.get(Calendar.SECOND);
-			
+			int m = calendar.get(Calendar.MONTH);
+			String monthName = mois[m - 1];
+
 			rc.setJour(semaine[d - 1]);
-			
+
 			SimpleDateFormat sdfD = new SimpleDateFormat("HH:mm:ss");
 			rc.setHeure(sdfD.format(date));
-	
+
+			// SimpleDateFormat sdfD2 = new
+			// SimpleDateFormat("dd MMM HH:mm:ss yyyy");
+			// rc.setDateConnexion(sdfD2.format(date));
+			rc.setDateConnexion(calendar.get(Calendar.DAY_OF_MONTH) + " "  + monthName + " "
+					+ rc.getHeure() + " " + calendar.get(Calendar.YEAR));
+			
+			rc.setConnexionDay(calendar.get(Calendar.DAY_OF_MONTH) );
+			rc.setConnexionMonthName(monthName);
+			rc.setConnexionYear(calendar.get(Calendar.YEAR));
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 		return rc;
 	}

@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -59,12 +60,12 @@ public class Main {
 		System.out.println("Demande d'un jeu");
 		ReponseConnect reponseConnect = ConnectGameServer.connect(
 				botvitale2_SECRET, botvitale2_TOKEN);
-		
-		
+
 		// 2bis - gestion des incidents
 		// gestion des incidents
-		//ReponseIncident reponseInsident = IncidentGameServer.incidents(equipe_TOKEN);
-		//graphe.addIncidents(reponseInsident.getIncidents());
+		// ReponseIncident reponseInsident =
+		// IncidentGameServer.incidents(equipe_TOKEN);
+		// graphe.addIncidents(reponseInsident.getIncidents());
 
 		// 3 - Attente debut du jeu (verify)
 		// loop attente
@@ -98,48 +99,46 @@ public class Main {
 		int currentStopId = reponseVerify.getFirstStop();
 		int currentTarget = reponseVerify.getTarget();
 		String currentConnexion = reponseVerify.getHeure();
-		
+
 		System.out.println("");
-		System.out.println("Position initiale : " +reponseVerify.toString());
-		
-		
+		System.out.println("Position initiale : " + reponseVerify.toString());
+
 		do {
 
-
 			// calcul itineraire - deplacement suivant
-			Deplacement deplacement = graphe.seDeplacer(
-					currentStopId, currentTarget,
-					currentConnexion, reponseVerify.getJour());
+			Deplacement deplacement = graphe.seDeplacer(currentStopId,
+					currentTarget, currentConnexion, reponseVerify.getJour());
 
 			System.out.println("");
 			System.out.println("calcul deplacement : " + deplacement);
-			
-			
+
 			// deplacement suivant
-			reponseMove = MoveGameServer.move(reponseVerify.getUrlMove(),
-					botvitale2_SECRET, deplacement.getNumLigne(),
-					deplacement.getConnexion(), deplacement.getNumArret(),
-					"move");
-			
-			
-			
-			// analyse reponse move 
+			reponseMove = MoveGameServer.move(
+					reponseVerify.getUrlMove(),
+					botvitale2_SECRET,
+					deplacement.getNumLigne(),
+					reponseVerify.getConnexionDay() + " "
+							+ reponseVerify.getMonthName() + " "
+							+ deplacement.getConnexion() + " "
+							+ reponseVerify.getConnexionYear(),
+					deplacement.getNumArret(), "move");
+
+			// analyse reponse move
 			currentStopId = reponseMove.getStopId();
-			currentTarget = reponseMove.getTarget(); 
-			
-			
+			currentTarget = reponseMove.getTarget();
+
 			++compteur;
 
 			// display
 			System.out.println("");
 			System.out.println("Mouvement " + reponseMove.toString());
-			System.out.println("de " + currentStopId  + " vers " + currentTarget);
+			System.out
+					.println("de " + currentStopId + " vers " + currentTarget);
 			System.out.println(reponseMove.toString());
-			
 
 			// verification partie encore active
-//			reponseVerify = VerifyGameServer.verify(
-		//			reponseConnect.getURrlVerify(), botvitale2_SECRET);
+			// reponseVerify = VerifyGameServer.verify(
+			// reponseConnect.getURrlVerify(), botvitale2_SECRET);
 		} while (!reponseMove.isArrived());
 
 		System.out.println("");
@@ -148,33 +147,9 @@ public class Main {
 		// affichage SCORE
 
 		System.out.println("");
-		System.out.println("SCORE : " );
+		System.out.println("SCORE : ");
 		System.out.println("nb mouvements : " + compteur);
 
 	}
-
-	/*
-	 * private static String connectBOT(String botvitale2_SECRET, String
-	 * botvitale2_TOKEN) { String responseBody = null; try { URL url = new
-	 * URL("http://24hc15.haum.org/api/connect/" + botvitale2_TOKEN);
-	 * HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	 * conn.setDoOutput(true); conn.setRequestMethod("POST");
-	 * conn.setRequestProperty("Content-Type", "application/json");
-	 * 
-	 * String input = "{\"secret\":\"" + botvitale2_SECRET +
-	 * "\",\"mode\":\"training\"}";
-	 * 
-	 * OutputStream os = conn.getOutputStream(); os.write(input.getBytes());
-	 * os.flush();
-	 * 
-	 * Scanner scanner; String response; if (conn.getResponseCode() != 200) {
-	 * scanner = new Scanner(conn.getErrorStream()); response =
-	 * "Error From Server \n\n " + conn.getResponseCode(); } else { scanner =
-	 * new Scanner(conn.getInputStream()); response =
-	 * "Response From Server \n\n"; } scanner.useDelimiter("\\Z"); responseBody
-	 * = response + scanner.next(); scanner.close(); conn.disconnect(); } catch
-	 * (MalformedURLException e) { e.printStackTrace(); } catch (IOException e)
-	 * { e.printStackTrace(); } return responseBody; }
-	 */
 
 }

@@ -30,6 +30,10 @@ public class ReponseVerify {
 	private String message;
 	private boolean success;
 	private String urlMove;
+	private String dateConnexion;
+	private int connexionDay;
+	private String monthName;
+	private int connexionYear;
 
 	public boolean isGameStarting() {
 		return GAME_STARTED.equals(getStatus());
@@ -106,6 +110,59 @@ public class ReponseVerify {
 		return urlMove;
 	}
 
+	public void setDateConnexion(String dateConnexion) {
+		this.dateConnexion = dateConnexion;
+	}
+
+	/**
+	 * @return the dateConnexion
+	 */
+	public String getDateConnexion() {
+		return dateConnexion;
+	}
+
+
+
+	public void setConnexionDay(int connexionDay) {
+		this.connexionDay = connexionDay;
+	}
+
+	public void setConnexionMonthName(String monthName) {
+		this.monthName = monthName;
+	}
+
+	public void setConnexionYear(int connexionYear) {
+		this.connexionYear = connexionYear;
+	}
+
+	/**
+	 * @return the monthName
+	 */
+	public String getMonthName() {
+		return monthName;
+	}
+
+	/**
+	 * @param monthName the monthName to set
+	 */
+	public void setMonthName(String monthName) {
+		this.monthName = monthName;
+	}
+
+	/**
+	 * @return the connexionDay
+	 */
+	public int getConnexionDay() {
+		return connexionDay;
+	}
+
+	/**
+	 * @return the connexionYear
+	 */
+	public int getConnexionYear() {
+		return connexionYear;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -128,8 +185,18 @@ public class ReponseVerify {
 		builder.append(success);
 		builder.append(", urlMove=");
 		builder.append(urlMove);
+		builder.append(", dateConnexion=");
+		builder.append(dateConnexion);
+		builder.append(", connexionDay=");
+		builder.append(connexionDay);
+		builder.append(", monthName=");
+		builder.append(monthName);
+		builder.append(", connexionYear=");
+		builder.append(connexionYear);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 
 }

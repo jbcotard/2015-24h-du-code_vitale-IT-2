@@ -8,7 +8,7 @@ public class MoveGameServer {
 
 	public static ReponseMove move(String uRrlVerify, String botvitale2_SECRET,
 			String numLigne, String connexion, String numArret, String type) {
-		//System.out.println(uRrlVerify);
+		System.out.println(uRrlVerify);
 		
 		// appel ws
 		String jsonDataInput = "{\"secret_token\":\"" + botvitale2_SECRET
