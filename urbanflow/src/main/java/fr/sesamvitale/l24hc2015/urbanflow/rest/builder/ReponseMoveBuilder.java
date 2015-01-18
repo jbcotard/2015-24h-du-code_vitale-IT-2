@@ -47,7 +47,7 @@ public class ReponseMoveBuilder {
 		if (!rc.isSuccess()) {
 			rc.setStopId(obj.getJSONObject("stop").getInt("id"));
 			rc.setStopName(obj.getJSONObject("stop").getString("name"));
-			rc.setPenality(obj.getInt("penality"));
+			rc.setPenality(obj.getInt("penalty"));
 		} else {
 			if ("moved".equals(rc.getStatus())
 					|| "rerouted".equals(rc.getStatus())) {
@@ -73,11 +73,13 @@ public class ReponseMoveBuilder {
 			Date date;
 			try {
 				date = sdf.parse(dateInString);
+				
+				System.out.println(dateInString + " parse > "+ date.toString());
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTime(date);
 
-				SimpleDateFormat sdfD = new SimpleDateFormat("HH:mm:ss");
-				rc.setTimeHeure(sdfD.format(date));
+				//SimpleDateFormat sdfD = new SimpleDateFormat("HH:mm:ss");
+				rc.setTimeHeure(/*sdfD.format(date)*/ dateInString.substring(dateInString.indexOf("T")+1,dateInString.indexOf("T")+9) );
 
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block

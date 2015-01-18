@@ -68,7 +68,8 @@ public class Main {
 		// ReponseIncident reponseInsident =
 		// IncidentGameServer.incidents(equipe_TOKEN);
 		// graphe.addIncidents(reponseInsident.getIncidents());
-		ReponseIncidents reponseInsidents = IncidentsGameServer.incidents(reponseConnect.getGameToken());
+		ReponseIncidents reponseInsidents = IncidentsGameServer
+				.incidents(reponseConnect.getGameToken());
 		graphe.gererIncidents(reponseInsidents.getIncidents());
 
 		// 3 - Attente debut du jeu (verify)
@@ -100,21 +101,23 @@ public class Main {
 
 		ReponseMove reponseMove;
 		int compteur = 0;
-		int currentStopId = reponseVerify.getFirstStop();
+		int nextStopId = reponseVerify.getFirstStop();
 		int currentTarget = reponseVerify.getTarget();
-		String currentConnexion = reponseVerify.getHeure();
+		String currentTime = reponseVerify.getHeure();
+		int currentStopId = 0;
 
 		System.out.println("");
 		System.out.println("Position initiale : " + reponseVerify.toString());
 
+		// calcul itineraire - 1er deplacement
+		Deplacement deplacement = graphe.seDeplacer(nextStopId, currentTarget,
+				currentTime, reponseVerify.getJour());
+
+		System.out.println("");
+		System.out.println("calcul deplacement : " + deplacement);
+
+		//deplacement.setConnexion(currentTime);
 		do {
-
-			// calcul itineraire - deplacement suivant
-			Deplacement deplacement = graphe.seDeplacer(currentStopId,
-					currentTarget, currentConnexion, reponseVerify.getJour());
-
-			System.out.println("");
-			System.out.println("calcul deplacement : " + deplacement);
 
 			// deplacement suivant
 			reponseMove = MoveGameServer.move(
@@ -125,28 +128,36 @@ public class Main {
 							+ reponseVerify.getMonthName() + " "
 							+ deplacement.getConnexion() + " "
 							+ reponseVerify.getConnexionYear(),
-					/*deplacement.getNumArret()*/ String.valueOf(currentStopId), "move");
+					String.valueOf(nextStopId), "move");
 
 			// analyse reponse move
 			currentStopId = reponseMove.getStopId();
 			if (reponseMove.isRerouted()) {
-			currentTarget = reponseMove.getTarget();
+				currentTarget = reponseMove.getTarget();
 			}
-			currentConnexion = reponseMove.getTimeHeure();
+			currentTime = reponseMove.getTimeHeure();
 
 			++compteur;
 
 			// display
 			System.out.println("");
-			System.out.println("Mouvement " + reponseMove.toString());
-			System.out
-					.println("de " + currentStopId + " vers " + currentTarget);
-			System.out.println(reponseMove.toString());
+			System.out.println("calcul itineraire > currentStopId: "
+					+ currentStopId + " currentTarget:" + currentTarget
+					+ " currentTime:" + currentTime
+					+ " reponseVerify.getJour():" + reponseVerify.getJour());
+			// calcul itineraire - deplacement suivant
+			deplacement = graphe.seDeplacer(currentStopId, currentTarget,
+					currentTime, reponseVerify.getJour());
+
+			System.out.println("");
+			System.out.println("calcul deplacement : " + deplacement);
+
+			nextStopId = Integer.parseInt(deplacement.getNumArret());
 
 			// verification partie encore active
 			// reponseVerify = VerifyGameServer.verify(
 			// reponseConnect.getURrlVerify(), botvitale2_SECRET);
-		} while (!reponseMove.isArrived());
+		} while (!reponseMove.isArrived() && compteur < 10);
 
 		System.out.println("");
 		System.out.println("Fin du jeu");

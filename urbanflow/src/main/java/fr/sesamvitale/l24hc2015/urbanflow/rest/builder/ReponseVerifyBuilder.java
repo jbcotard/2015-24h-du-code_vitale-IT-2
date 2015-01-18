@@ -30,6 +30,8 @@ public class ReponseVerifyBuilder {
 	public static ReponseVerify getReponseVerify(String jsonData) {
 		ReponseVerify rc = new ReponseVerify();
 
+		System.out.println(jsonData); 
+		
 		JSONObject obj = new JSONObject(jsonData);
 		rc.setStatus(obj.getString("status"));
 		rc.setFirstStop(obj.getJSONObject("first_stop").getInt("id"));
@@ -44,17 +46,18 @@ public class ReponseVerifyBuilder {
 		Date date;
 		try {
 			date = sdf.parse(dateInString);
+			//System.out.println(dateInString + " parse > "+ date.toString());
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(date);
 
 			int d = calendar.get(Calendar.DAY_OF_WEEK);
 			int m = calendar.get(Calendar.MONTH);
-			String monthName = mois[m - 1];
+			String monthName = mois[m];
 
 			rc.setJour(semaine[d - 1]);
 
 			SimpleDateFormat sdfD = new SimpleDateFormat("HH:mm:ss");
-			rc.setHeure(sdfD.format(date));
+			rc.setHeure(/*sdfD.format(date)*/ dateInString.substring(dateInString.indexOf("T")+1,dateInString.indexOf("T")+9) );
 
 			// SimpleDateFormat sdfD2 = new
 			// SimpleDateFormat("dd MMM HH:mm:ss yyyy");

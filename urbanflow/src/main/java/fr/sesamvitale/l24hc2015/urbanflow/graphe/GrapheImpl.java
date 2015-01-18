@@ -71,7 +71,6 @@ public class GrapheImpl implements IGraphe
 				if (null != arretPrecedent){
 					Liaison liaison = new Liaison(arretPrecedent, arrets.get(arret.getId()),nomLigne);
 					ajouterLiaison(liaison);
-
 				}
 				arretPrecedent = arrets.get(arret.getId());
 			}
@@ -150,10 +149,10 @@ public class GrapheImpl implements IGraphe
 		for (int i=0;i<incidents.size();i++){
 			Incident incident = incidents.get(i);
 			if (incident.getArretId().equals(arret.getId())){
-				if ((Temps.isPosterieur(Temps.convertStringToTemps(incident.getDateStart()), 
+				if ((Temps.isPosterieur(Temps.convertDateStringToTemps(incident.getDateStart()), 
 						Temps.convertStringToTemps(temps)) == -1)&&
 						(Temps.isPosterieur(Temps.convertStringToTemps(temps), 
-								Temps.convertStringToTemps(incident.getDateEnd())) == -1)){
+								Temps.convertDateStringToTemps(incident.getDateEnd())) == -1)){
 					tempsTT+= incident.getPenalty();
 				}
 			}
