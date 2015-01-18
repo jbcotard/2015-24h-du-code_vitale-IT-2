@@ -45,7 +45,6 @@ public class ReponseMoveBuilder {
 		rc.setStatus(obj.getString("status"));
 		rc.setMessage(obj.getString("message"));
 		rc.setSuccess(obj.getBoolean("success"));
-		rc.setTime(obj.getString("time"));
 
 		if (!rc.isSuccess()) {
 			rc.setStopId(obj.getJSONObject("stop").getInt("id"));
@@ -63,11 +62,12 @@ public class ReponseMoveBuilder {
 			}
 
 			if ("arrived".equals(rc.getStatus())) {
-				rc.setScore(obj.getString("score"));
+				rc.setScore(String.valueOf(obj.getInt("score")));
 			}
 		}
 		if (!"arrived".equals(rc.getStatus())) {
 
+			rc.setTime(obj.getString("time"));
 			String dateInString = obj.getString("time");
 
 			SimpleDateFormat sdf = new SimpleDateFormat(

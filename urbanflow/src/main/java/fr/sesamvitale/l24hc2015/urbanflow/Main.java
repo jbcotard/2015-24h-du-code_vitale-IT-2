@@ -36,7 +36,7 @@ public class Main {
 		String botvitale4_TOKEN = "12cc040653de50b60bea6563e68629dc";
 		String botvitale4_SECRET = "3569c2dae3e3116877c9b41fd81e73cf983197a24d4261cca0190eb856758e41";
 
-		String MODE_GAME = "arena";
+		String MODE_GAME = "training";
 
 		// 0 - Genere la MAP
 		System.out.println("");
