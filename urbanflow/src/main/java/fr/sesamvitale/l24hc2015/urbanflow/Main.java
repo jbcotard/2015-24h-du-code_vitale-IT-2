@@ -191,7 +191,11 @@ public class Main {
 			// verification partie encore active
 			// reponseVerify = VerifyGameServer.verify(
 			// reponseConnect.getURrlVerify(), botvitale2_SECRET);
+<<<<<<< HEAD
 		} while (!reponseMove.isArrived() && compteur < 50 && !isFin);
+=======
+		} while (!reponseMove.isArrived());
+>>>>>>> branch 'master' of https://github.com/jbcotard/2015-24h-du-code_vitale-IT-2.git
 
 		System.out.println("");
 		System.out.println("Fin du jeu");
