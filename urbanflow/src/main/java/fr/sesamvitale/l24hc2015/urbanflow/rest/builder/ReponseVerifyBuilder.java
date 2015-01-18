@@ -34,47 +34,53 @@ public class ReponseVerifyBuilder {
 
 		JSONObject obj = new JSONObject(jsonData);
 		rc.setStatus(obj.getString("status"));
-		rc.setFirstStop(obj.getJSONObject("first_stop").getInt("id"));
-		rc.setTarget(obj.getJSONObject("target").getInt("id"));
 		rc.setMessage(obj.getString("message"));
 		rc.setSuccess(obj.getBoolean("success"));
 		rc.setUrlMove(obj.getString("url"));
-		String dateInString = obj.getString("dtstart");
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd'T'HH:mm:ssXXX");
+		if (rc.isGameStarting()) {
+			rc.setFirstStop(obj.getJSONObject("first_stop").getInt("id"));
+			rc.setTarget(obj.getJSONObject("target").getInt("id"));
 
-		Date date;
-		try {
-			date = sdf.parse(dateInString);
-			// System.out.println(dateInString + " parse > "+ date.toString());
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(date);
+			String dateInString = obj.getString("dtstart");
 
-			int d = calendar.get(Calendar.DAY_OF_WEEK);
-			int m = calendar.get(Calendar.MONTH);
-			String monthName = mois[m];
+			SimpleDateFormat sdf = new SimpleDateFormat(
+					"yyyy-M-dd'T'HH:mm:ssXXX");
 
-			rc.setJour(semaine[d - 1]);
+			Date date;
+			try {
+				date = sdf.parse(dateInString);
+				// System.out.println(dateInString + " parse > "+
+				// date.toString());
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date);
 
-			SimpleDateFormat sdfD = new SimpleDateFormat("HH:mm:ss");
-			rc.setHeure(/* sdfD.format(date) */dateInString.substring(
-					dateInString.indexOf("T") + 1,
-					dateInString.indexOf("T") + 9));
+				int d = calendar.get(Calendar.DAY_OF_WEEK);
+				int m = calendar.get(Calendar.MONTH);
+				String monthName = mois[m];
 
-			// SimpleDateFormat sdfD2 = new
-			// SimpleDateFormat("dd MMM HH:mm:ss yyyy");
-			// rc.setDateConnexion(sdfD2.format(date));
-			rc.setDateConnexion(calendar.get(Calendar.DAY_OF_MONTH) + " "
-					+ monthName + " " + rc.getHeure() + " "
-					+ calendar.get(Calendar.YEAR));
+				rc.setJour(semaine[d - 1]);
 
-			rc.setConnexionDay(calendar.get(Calendar.DAY_OF_MONTH));
-			rc.setConnexionMonthName(monthName);
-			rc.setConnexionYear(calendar.get(Calendar.YEAR));
+				SimpleDateFormat sdfD = new SimpleDateFormat("HH:mm:ss");
+				rc.setHeure(/* sdfD.format(date) */dateInString.substring(
+						dateInString.indexOf("T") + 1,
+						dateInString.indexOf("T") + 9));
 
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				// SimpleDateFormat sdfD2 = new
+				// SimpleDateFormat("dd MMM HH:mm:ss yyyy");
+				// rc.setDateConnexion(sdfD2.format(date));
+				rc.setDateConnexion(calendar.get(Calendar.DAY_OF_MONTH) + " "
+						+ monthName + " " + rc.getHeure() + " "
+						+ calendar.get(Calendar.YEAR));
+
+				rc.setConnexionDay(calendar.get(Calendar.DAY_OF_MONTH));
+				rc.setConnexionMonthName(monthName);
+				rc.setConnexionYear(calendar.get(Calendar.YEAR));
+
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		return rc;

@@ -1,5 +1,7 @@
 package fr.sesamvitale.l24hc2015.urbanflow.rest;
 
+import org.json.JSONException;
+
 import fr.sesamvitale.l24hc2015.urbanflow.rest.builder.ReponseConnectBuilder;
 import fr.sesamvitale.l24hc2015.urbanflow.rest.builder.ReponseMoveBuilder;
 import fr.sesamvitale.l24hc2015.urbanflow.util.RSClientUtil;
@@ -7,7 +9,7 @@ import fr.sesamvitale.l24hc2015.urbanflow.util.RSClientUtil;
 public class MoveGameServer {
 
 	public static ReponseMove move(String uRrlVerify, String botvitale2_SECRET,
-			String numLigne, String connexion, String numArret, String type) {
+			String numLigne, String connexion, String numArret, String type) throws JSONException {
 		//System.out.println(uRrlVerify);
 		
 		// appel ws

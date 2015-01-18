@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.sesamvitale.l24hc2015.urbanflow.rest.ReponseConnect;
@@ -33,7 +34,8 @@ public class ReponseMoveBuilder {
 	 * Cible atteinte "success": True, "status": "arrived", "score":
 	 * <bot_score>, "message": "Your bot has reached the target, congrats!"
 	 */
-	public static ReponseMove getReponseConnect(String jsonData) {
+	public static ReponseMove getReponseConnect(String jsonData) throws JSONException {
+		
 		ReponseMove rc = new ReponseMove();
 
 		System.out.println("    << " + jsonData);
