@@ -145,19 +145,20 @@ public class GrapheImpl implements IGraphe
 		if (null == incidents) {
 			return 0;
 		}
+		int tempsTT = 0;
 		//parcourt de la liste des incidents
 		for (int i=0;i<incidents.size();i++){
 			Incident incident = incidents.get(i);
 			if (incident.getArretId().equals(arret.getId())){
-				if ((Temps.isPosterieur(Temps.convertDateStringToTemps(incident.getDateStart()), 
-						Temps.convertStringToTemps(temps)) == 0)&&
+				if ((Temps.isPosterieur(Temps.convertStringToTemps(incident.getDateStart()), 
+						Temps.convertStringToTemps(temps)) == -1)&&
 						(Temps.isPosterieur(Temps.convertStringToTemps(temps), 
-								Temps.convertDateStringToTemps(incident.getDateEnd())) == 0)){
-					return incident.getPenalty();
+								Temps.convertStringToTemps(incident.getDateEnd())) == -1)){
+					tempsTT+= incident.getPenalty();
 				}
 			}
 		}
-		return 0;
+		return tempsTT;
 	}
 
 	public Deplacement seDeplacer(int s, int t, String heure, String jour){
