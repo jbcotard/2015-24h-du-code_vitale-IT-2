@@ -15,27 +15,27 @@ public class ReponseIncidentBuilder {
 		System.out.println("    << " + jsonData);
 		JSONObject obj = new JSONObject(jsonData);
 
-		JSONArray incidents = obj.getJSONArray("incidents");
+		//JSONArray incidents = obj.getJSONArray("incidents");
 		
 		ris.setStatus(obj.getString("status"));
-		ris.setGameToken(obj.getString("game_token"));
+		//ris.setGameToken(obj.getString("game_token"));
 		ris.setSuccess(obj.getBoolean("success"));
 		
-		for (int i = 0; i < incidents.length(); i++) {
-			JSONObject jsonIncident = incidents.getJSONObject(i);
-			
-			Incident incident = new Incident();
-			
-			incident.setPenalty(jsonIncident.getInt("penalty"));
-			incident.setDateEnd(jsonIncident.getString("dtend"));
-			incident.setDateStart(jsonIncident.getString("dtstart"));
-			incident.setType(jsonIncident.getString("type"));
-			
-			incident.setArretId(""+jsonIncident.getJSONObject("stop").getInt("id"));
-			incident.setArretName(jsonIncident.getJSONObject("stop").getString("name"));
-			
-			ris.ajouterIncident(incident);
-		}
+//		for (int i = 0; i < incidents.length(); i++) {
+//			JSONObject jsonIncident = incidents.getJSONObject(i);
+//			
+//			Incident incident = new Incident();
+//			
+//			incident.setPenalty(jsonIncident.getInt("penalty"));
+//			incident.setDateEnd(jsonIncident.getString("dtend"));
+//			incident.setDateStart(jsonIncident.getString("dtstart"));
+//			incident.setType(jsonIncident.getString("type"));
+//			
+//			incident.setArretId(""+jsonIncident.getJSONObject("stop").getInt("id"));
+//			incident.setArretName(jsonIncident.getJSONObject("stop").getString("name"));
+//			
+//			ris.ajouterIncident(incident);
+//		}
 
 		return ris;
 	}

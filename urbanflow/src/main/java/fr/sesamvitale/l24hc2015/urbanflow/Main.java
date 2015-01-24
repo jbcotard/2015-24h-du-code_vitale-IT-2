@@ -27,16 +27,24 @@ public class Main {
 		System.out.println("===================================");
 
 		String equipe_TOKEN = "482f6c3c786e98f89dbe6e7e1ace1aef717949dc3f92fa01870fdd8ea6e18f96";
-		String botvitale2_SECRET = "361581db8f84766d2912241aa17778fce64b91e05db18616877b2d44af3099aa";
-		String botvitale2_TOKEN = "ea3b31b7956ba470a0545b79e4069d71";
+//		String botvitale2_SECRET = "361581db8f84766d2912241aa17778fce64b91e05db18616877b2d44af3099aa";
+//		String botvitale2_TOKEN = "ea3b31b7956ba470a0545b79e4069d71";
+//
+//		String botvitale3_TOKEN = "5ea07f975cb3bdf02d73174a9e79a754";
+//		String botvitale3_SECRET = "1b1813ac005fc70c505524d5e3294aae6cc453eaffbdb025b0d3d5616ec1d2f5";
+//
+//		String botvitale4_TOKEN = "12cc040653de50b60bea6563e68629dc";
+//		String botvitale4_SECRET = "3569c2dae3e3116877c9b41fd81e73cf983197a24d4261cca0190eb856758e41";
 
-		String botvitale3_TOKEN = "5ea07f975cb3bdf02d73174a9e79a754";
-		String botvitale3_SECRET = "1b1813ac005fc70c505524d5e3294aae6cc453eaffbdb025b0d3d5616ec1d2f5";
 
-		String botvitale4_TOKEN = "12cc040653de50b60bea6563e68629dc";
-		String botvitale4_SECRET = "3569c2dae3e3116877c9b41fd81e73cf983197a24d4261cca0190eb856758e41";
+//		String botvitale7_TOKEN = "6fd2c12fbda20ca64279b82f2fdb0407";
+//		String botvitale7_SECRET = "7c290e79babe11adbc80508133789dbf646c4e625a7f1a4e1807bb6b50763821";
+//		
 
-		String MODE_GAME = "training";
+		String botvitale17_TOKEN = "930ac8ec48c1dcb37e5fd39466f5cfb9";
+		String botvitale17_SECRET = "c010b7269dfcf4b632cd0f75ccc3e897b0f749f5b51ea088c9df142a7d0bfad0";
+		
+		String MODE_GAME = "eval";
 
 		// 0 - Genere la MAP
 		System.out.println("");
@@ -55,7 +63,7 @@ public class Main {
 		System.out.println("");
 		System.out.println("Demande d'un jeu en mode " + MODE_GAME);
 		ReponseConnect reponseConnect = ConnectGameServer.connect(
-				botvitale2_SECRET, botvitale2_TOKEN, MODE_GAME);
+				botvitale17_SECRET, botvitale17_TOKEN, MODE_GAME);
 
 //		if ("arena".equals(MODE_GAME)) {
 //			reponseConnect = ConnectGameServer.connect(botvitale3_SECRET,
@@ -87,7 +95,14 @@ public class Main {
 		}
 		do {
 			reponseVerify = VerifyGameServer.verify(
-					reponseConnect.getURrlVerify(), botvitale2_SECRET);
+					reponseConnect.getURrlVerify(), botvitale17_SECRET);
+			
+			//Pause for 4 seconds
+            try {
+				Thread.sleep(4000);
+			} catch (InterruptedException e) {
+				System.out.println("on retente.");
+			}
 
 		} while (!reponseVerify.isGameStarting());
 
@@ -135,7 +150,7 @@ public class Main {
 			// deplacement suivant
 			reponseMove = MoveGameServer.move(
 					reponseVerify.getUrlMove(),
-					botvitale2_SECRET,
+					botvitale17_SECRET,
 					deplacement.getNumLigne(),
 					reponseVerify.getConnexionDay() + " "
 							+ reponseVerify.getMonthName() + " "
